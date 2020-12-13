@@ -1,13 +1,33 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { onMaxWidth } from "../util/responsive";
 
 const baseGridStyle = {
   display: "grid",
   gridTemplateColumns: "70% 10% 10% 10%",
 };
 
+const bottomLineStyle = {
+  display: "grid",
+  gridTemplateColumns: "70% 25% 5%",
+  marginTop: "10px",
+};
+
 const TopBar: React.FC<{}> = () => {
+  onMaxWidth(2560, () => {
+    baseGridStyle.gridTemplateColumns = "70% 10% 10% 10%";
+    bottomLineStyle.gridTemplateColumns = "70% 25% 5%";
+  });
+  onMaxWidth(1440, () => {
+    baseGridStyle.gridTemplateColumns = "58% 14% 14% 14%";
+    bottomLineStyle.gridTemplateColumns = "58% 35% 7%";
+  });
+  onMaxWidth(1023, () => {
+    baseGridStyle.gridTemplateColumns = "55% 15% 15% 15%";
+    bottomLineStyle.gridTemplateColumns = "55% 37% 8%";
+  });
+
   return (
     <div
       style={{
@@ -23,7 +43,7 @@ const TopBar: React.FC<{}> = () => {
           Contraseña
         </label>
       </div>
-      <div style={baseGridStyle}>
+      <div style={{ ...baseGridStyle }}>
         <input style={{ gridColumn: "2/3", marginRight: "10px" }} />
         <input
           type="password"
@@ -54,15 +74,11 @@ const TopBar: React.FC<{}> = () => {
           <input type="checkbox"></input>
           <label>Recordarme</label>
         </div>
-        <a style={{ color: "#cacdcf" }}>¿Has olvidado tu contraseña?</a>
+        <a style={{ color: "#cacdcf", gridColumn: "3/5" }}>
+          ¿Has olvidado tu contraseña?
+        </a>
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "70% 25% 5%",
-          marginTop: "10px",
-        }}
-      >
+      <div style={{ ...bottomLineStyle }}>
         <div
           style={{
             gridColumn: "2/3",

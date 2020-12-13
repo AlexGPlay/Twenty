@@ -1,16 +1,22 @@
 import React from "react";
+import { isScreenSmallerThan } from "../util/responsive";
 import Center from "./Center";
 import Footer from "./Footer";
+import MobileLogin from "./MobileLogin";
 import TopBar from "./TopBar";
 
 const Login: React.FC<{}> = () => {
-  return (
-    <main
-      style={{
-        height: "100%",
-        backgroundColor: "#598CB7",
-      }}
-    >
+  const basicStyles = {
+    height: "100%",
+    backgroundColor: "#598CB7",
+  };
+
+  return isScreenSmallerThan(1023) ? (
+    <main style={basicStyles}>
+      <MobileLogin />
+    </main>
+  ) : (
+    <main style={basicStyles}>
       <div
         style={{
           height: "inherit",
