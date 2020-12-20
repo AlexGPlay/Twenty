@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-const MobileLogin = () => {
+const MobileLogin: React.FC<{
+  onLogin: (email: string, password: string) => Promise<void>;
+}> = ({ onLogin }) => {
+  const [fields, setFields] = useState({ email: "", password: "" });
+
+  const handleInput = (field: "email" | "password", data: string) => {
+    setFields({ ...fields, [field]: data });
+  };
+
   return (
     <div style={{ padding: "5%" }}>
       <div
@@ -32,7 +40,11 @@ const MobileLogin = () => {
             Email
           </label>
           <br />
-          <input style={{ width: "100%", height: "2vh", marginTop: "10px" }} />
+          <input
+            style={{ width: "100%", height: "2vh", marginTop: "10px" }}
+            value={fields.email}
+            onChange={(evt) => handleInput("email", evt.target.value)}
+          />
         </div>
         <div style={{ marginTop: "5%" }}>
           <label
@@ -44,6 +56,8 @@ const MobileLogin = () => {
           <input
             type="password"
             style={{ width: "100%", height: "2vh", marginTop: "10px" }}
+            value={fields.password}
+            onChange={(evt) => handleInput("password", evt.target.value)}
           />
         </div>
         <div
@@ -62,6 +76,7 @@ const MobileLogin = () => {
               borderRadius: "5px",
               fontSize: "1.5em",
             }}
+            onClick={() => onLogin(fields.email, fields.password)}
           >
             Entrar
           </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { onMaxWidth } from "../util/responsive";
@@ -14,7 +14,9 @@ const bottomLineStyle = {
   marginTop: "10px",
 };
 
-const TopBar: React.FC<{}> = () => {
+const TopBar: React.FC<{
+  onLogin: (email: string, password: string) => Promise<void>;
+}> = ({ onLogin }) => {
   onMaxWidth(2560, () => {
     baseGridStyle.gridTemplateColumns = "70% 10% 10% 10%";
     bottomLineStyle.gridTemplateColumns = "70% 25% 5%";
@@ -27,6 +29,15 @@ const TopBar: React.FC<{}> = () => {
     baseGridStyle.gridTemplateColumns = "55% 15% 15% 15%";
     bottomLineStyle.gridTemplateColumns = "55% 37% 8%";
   });
+
+  const [fields, setFields] = useState<{ email: string; password: string }>({
+    email: "",
+    password: "",
+  });
+
+  const handleInput = (field: "email" | "password", data: string) => {
+    setFields({ ...fields, [field]: data });
+  };
 
   return (
     <div
@@ -44,10 +55,16 @@ const TopBar: React.FC<{}> = () => {
         </label>
       </div>
       <div style={{ ...baseGridStyle }}>
-        <input style={{ gridColumn: "2/3", marginRight: "10px" }} />
+        <input
+          style={{ gridColumn: "2/3", marginRight: "10px" }}
+          value={fields.email}
+          onChange={(evt) => handleInput("email", evt.target.value)}
+        />
         <input
           type="password"
           style={{ gridColumn: "3/4", marginRight: "10px" }}
+          value={fields.password}
+          onChange={(evt) => handleInput("password", evt.target.value)}
         />
         <button
           style={{
@@ -58,6 +75,7 @@ const TopBar: React.FC<{}> = () => {
             borderColor: "#8BCCEB",
             borderRadius: "5px",
           }}
+          onClick={() => onLogin(fields.email, fields.password)}
         >
           Entrar
         </button>

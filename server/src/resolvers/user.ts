@@ -1,5 +1,5 @@
 import { User } from "../entities/User";
-import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, Int, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
 import { ApolloContext } from "src/types";
@@ -50,6 +50,13 @@ export class UserResolver{
     @Ctx() { req }: ApolloContext
   ): Promise<UserResponse>{
     return login(email, password, req);
+  }
+
+  @Query(() => Int, {nullable: true})
+  me(
+    @Ctx() { req }: ApolloContext
+  ){
+    return req.session.userId;
   }
 
 }

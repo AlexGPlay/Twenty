@@ -1,8 +1,6 @@
 import path from 'path';
 import express from 'express';
-import React from "react";
-import ReactDOMServer from 'react-dom/server';
-import Login from '../javascript/login/login';
+import {isLoggedMiddleware, isNotLoggedMiddleware} from './middleware/authMiddleware';
 
 const appPort = 3000;
 const app = express();
@@ -13,9 +11,15 @@ app.use(express.static(path.join(process.cwd(), 'src', 'public')));
 app.set('views', path.join(process.cwd(), 'src', 'views'));
 app.engine('html', require('ejs').renderFile);
 
-app.get('/', (_, res) => {
-  const htmlCode = ReactDOMServer.renderToString(React.createElement(Login));
-  res.render('index.html', { htmlCode });
+app.use('/login', isLoggedMiddleware);
+app.use('/', isNotLoggedMiddleware);
+
+app.get('/', async (_, res) => {
+  res.send("Logged in");
+});
+
+app.get('/login', async (_, res) => {
+  res.render('index.html');
 });
 
 app.listen(appPort, () => console.log(`App listening on ${appPort}`));
