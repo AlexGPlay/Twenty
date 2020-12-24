@@ -1,0 +1,276 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #598cb7;
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  margin: 5%;
+  margin-top: 15%;
+}
+
+input {
+  border-radius: 5px;
+  border-color: white;
+  padding: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo {
+  height: 6vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  text-align: center;
+  object-fit: contain;
+  width: 520px;
+}
+
+.logo .logo-img {
+  width: 15%;
+  margin-right: 10px;
+}
+
+.logo .logo-text {
+  width: 50%;
+}
+
+.logo img {
+  max-height: 100%;
+}
+
+.form {
+  color: #2f557a;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-field label::after {
+  content: "\A";
+  white-space: pre;
+}
+
+.form-field input {
+  margin-top: 5px;
+  width: 100%;
+  height: 30px;
+}
+
+hr {
+  border: none;
+  background-color: black;
+  opacity: 10%;
+  height: 1px;
+}
+
+.forgot-password,
+.new-account {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.forgot-password a {
+  color: white;
+}
+
+.new-account a {
+  color: white;
+  font-weight: bold;
+}
+
+.remember-me {
+  display: none;
+}
+
+.description {
+  display: none;
+}
+
+.second-column-container {
+  display: none;
+}
+
+.footer {
+  display: none;
+}
+
+@media (min-width: 1023px) {
+  main {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 20% 60% 20%;
+    margin: 0;
+  }
+
+  input {
+    border-radius: 2px;
+  }
+
+  hr {
+    display: none;
+  }
+
+  .form {
+    grid-row: 1/2;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 0.75em;
+    margin-right: 2vw;
+    display: grid;
+    grid-template-rows: 33% 20% 47%;
+    justify-content: end;
+  }
+
+  .form-main {
+    justify-self: end;
+    grid-row: 1/2;
+  }
+
+  .form-field {
+    width: 190px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+  }
+
+  .form-button-container {
+    display: inline-block;
+    width: 95px;
+    margin-left: 5px;
+  }
+
+  .form-button {
+    height: 33px;
+  }
+
+  .form-extra {
+    border-bottom: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .forgot-password {
+    grid-row: 2/3;
+  }
+
+  .new-account {
+    grid-row: 3/4;
+    margin-top: 5px;
+    justify-self: end;
+  }
+
+  .remember-me {
+    display: inline-block;
+    width: 200px;
+    color: white;
+    font-weight: normal;
+  }
+
+  .forgot-password {
+    display: inline-block;
+    margin-top: 0;
+    font-weight: normal;
+  }
+
+  .forgot-password a,
+  .new-account a {
+    color: #cacdcf;
+  }
+
+  .info {
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .first-column-container {
+    grid-row: 1/2;
+    justify-self: end;
+    border-right: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding-right: 50px;
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+    align-self: center;
+  }
+
+  .logo {
+    width: 550px;
+    height: 100px;
+    text-align: right;
+    float: right;
+  }
+
+  .description {
+    display: block;
+    float: right;
+    width: 363px;
+    text-align: right;
+  }
+
+  .description .title {
+    margin-top: 25px;
+    font-weight: bold;
+  }
+
+  .description .text {
+    margin-top: 10px;
+    color: #cacdcf;
+  }
+
+  .second-column-container {
+    display: grid;
+    grid-template-rows: 33% 33% 33%;
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+    grid-column: 2/3;
+    align-self: center;
+    padding-left: 50px;
+  }
+
+  .first-element {
+    grid-row: 1/2;
+  }
+
+  .second-element {
+    grid-row: 2/3;
+  }
+
+  .third-element {
+    grid-row: 3/4;
+  }
+
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 60px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-top: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    font-size: 12px;
+  }
+
+  .footer > div:first-of-type > label:first-of-type {
+    margin-right: 20px;
+  }
+
+  .footer > div > label {
+    margin-right: 10px;
+  }
+}

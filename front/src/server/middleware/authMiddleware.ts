@@ -23,11 +23,18 @@ export async function isNotLoggedMiddleware(req: Request, res: Response, next: (
 }
 
 async function getLogginStatus(req: Request){
-  const headers = {} as any;
-  if(req.headers.cookie) headers.cookie = req.headers.cookie as string;
+  try{
+    const headers = {} as any;
+    if(req.headers.cookie) headers.cookie = req.headers.cookie as string;
 
-  const response = await fetch('http://localhost:4000/validate', {
-    headers
-  });
-  return await response.json();
+    const response = await fetch('http://localhost:4000/validate', {
+      headers
+    });
+    return await response.json();
+  }
+  catch(e){
+    return {
+      valid: false
+    }
+  }
 }

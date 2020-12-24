@@ -11,14 +11,16 @@ const InfoImg: React.FC<InfoImgTypes> = (props) => {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "15% 85%",
+        gridTemplateColumns: "20% 80%",
         alignItems: "center",
+        width: "340px",
+        marginBottom: "25px",
       }}
     >
       <div style={{ gridColumn: "1/2", height: "60%" }}>
         <img
           src={props.imgPath}
-          style={{ maxWidth: "100%", maxHeight: "100%" }}
+          style={{ maxWidth: "45px", maxHeight: "50px" }}
         ></img>
       </div>
       <div style={{ gridColumn: "2/3", color: "white" }}>

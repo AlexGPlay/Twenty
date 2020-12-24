@@ -6,7 +6,7 @@
   "scripts": {
     "watch-server": "tsc -w --project server.tsconfig.json",
     "watch-web": "npx webpack --watch",
-    "dev": "nodemon dist/server/index.js"
+    "dev": "nodemon dist/server/server/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +24,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-query": "^3.3.0",
-    "react-responsive": "^8.2.0",
     "webpack": "^5.10.1"
   },
   "devDependencies": {
