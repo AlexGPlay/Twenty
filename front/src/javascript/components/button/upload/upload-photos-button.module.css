@@ -1,0 +1,9 @@
+.uploadPhotosButton {
+  background-color: #245a85;
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  height: 25px;
+  border-radius: 5%;
+  border: 0;
+}

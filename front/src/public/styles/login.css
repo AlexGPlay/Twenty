@@ -1,14 +1,6 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
-  margin: 0;
   background-color: #598cb7;
-  height: 100%;
-  width: 100%;
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -28,6 +20,7 @@ a {
 
 .logo {
   height: 6vh;
+  min-height: 60px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 15px;
@@ -53,6 +46,7 @@ a {
   color: #2f557a;
   font-weight: bold;
   margin-bottom: 25px;
+  min-height: 160px;
 }
 
 .form-field {
@@ -118,7 +112,7 @@ hr {
   }
 
   input {
-    border-radius: 2px;
+    border-radius: 5px;
   }
 
   hr {
@@ -195,6 +189,7 @@ hr {
     grid-row: 2/3;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    min-height: 340px;
   }
 
   .first-column-container {
@@ -257,6 +252,7 @@ hr {
   .footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    min-height: 40px;
     margin-top: 60px;
     margin-left: 25px;
     margin-right: 25px;

@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    login: './src/javascript/login/index.tsx'
+    login: './src/javascript/login/index.tsx',
+    main: './src/javascript/main/index.tsx'
   },
   module: {
     rules: [
@@ -18,6 +19,10 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
     ],
   },
   resolve: {

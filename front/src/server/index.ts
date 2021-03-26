@@ -25,16 +25,16 @@ app.use("/login", isLoggedMiddleware);
 app.use("/", isNotLoggedMiddleware);
 
 app.get("/", async (_, res) => {
-  res.send("Logged in");
+  res.render("main.html");
 });
 
 app.get("/login", async (_, res) => {
-  const data = ReactDOMServer.renderToString(
-    <QueryClientProvider client={new QueryClient()}>
-      <Login />
-    </QueryClientProvider>
-  );
-  res.render("index.html", { data: data });
+  // const data = ReactDOMServer.renderToString(
+  //   <QueryClientProvider client={new QueryClient()}>
+  //     <Login />
+  //   </QueryClientProvider>
+  // );
+  res.render("index.html", { data: "" });
 });
 
 app.listen(appPort, () => console.log(`App listening on ${appPort}`));

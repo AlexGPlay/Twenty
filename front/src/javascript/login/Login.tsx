@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import Button from "../components/Button";
+import Button from "../components/button/twenty/Button";
 import InfoImg from "./InfoImg";
 import { useLogin } from "../queries/useLogin";
 
@@ -8,12 +8,15 @@ const Login: React.FC<{}> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState<string[]>([]);
+
   const login = useLogin();
 
-  const handleLogin = async () => {
+  const handleLogin = async (evt: MouseEvent | React.FormEvent) => {
+    evt.preventDefault();
     const response = await login.mutateAsync({ email, password });
     if (response.login.errors) {
-      console.log(response.login.errors);
+      setErrors(response.login.errors.map((error: { field: string, message: string }) => error.field));
     } else {
       window.location.href = "/";
     }
@@ -60,47 +63,57 @@ const Login: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <div className="form">
-        <div className="form-main">
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              value={email}
-              onChange={(evt) => setEmail(evt.target.value)}
-            />
+      <form onSubmit={handleLogin}>
+        <div className="form">
+          <div className="form-main">
+            <div className="form-field">
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                value={email}
+                onChange={(evt) => setEmail(evt.target.value)}
+                style={{ 
+                  borderColor: errors.find(error => error === "email") ? 'red' : '',
+                  outlineColor: errors.find(error => error === "email") ? 'red' : ''
+                }}
+              />
+            </div>
+            <div className="form-field">
+              <label htmlFor="password">Contraseña</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={(evt) => setPassword(evt.target.value)}
+                style={{ 
+                  borderColor: errors.find(error => error === "password") ? 'red' : '' ,
+                  outlineColor: errors.find(error => error === "password") ? 'red' : ''
+                }}
+              />
+            </div>
+            <div className="form-button-container">
+              <Button text="Entrar" onClick={handleLogin} />
+            </div>
           </div>
-          <div className="form-field">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={(evt) => setPassword(evt.target.value)}
-            />
-          </div>
-          <div className="form-button-container">
-            <Button text="Entrar" onClick={handleLogin} />
-          </div>
-        </div>
 
-        <hr />
-        <div className="form-extra">
-          <div className="remember-me">
-            <input type="checkbox" name="remember-me" id="remember-me" />
-            <label htmlFor="remember-me">Recordarme</label>
+          <hr />
+          <div className="form-extra">
+            <div className="remember-me">
+              <input type="checkbox" name="remember-me" id="remember-me" />
+              <label htmlFor="remember-me">Recordarme</label>
+            </div>
+            <div className="forgot-password">
+              <a href="#">¿Has olvidado tu contraseña?</a>
+            </div>
           </div>
-          <div className="forgot-password">
-            <a href="#">¿Has olvidado tu contraseña?</a>
+          <div className="new-account">
+            <a href="#">¿Quieres una cuenta?</a>
           </div>
         </div>
-        <div className="new-account">
-          <a href="#">¿Quieres una cuenta?</a>
-        </div>
-      </div>
+      </form>
       <div className="footer">
         <div>
           <label>Twenty 2020</label>

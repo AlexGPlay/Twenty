@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 
 export async function isLoggedMiddleware(req: Request, res: Response, next: () => void){
   const response = await getLogginStatus(req);
+  console.log('Is logged', response);
   if(response.valid){
     res.redirect('/');
   }
@@ -14,6 +15,7 @@ export async function isLoggedMiddleware(req: Request, res: Response, next: () =
 export async function isNotLoggedMiddleware(req: Request, res: Response, next: () => void){
   if(req.path.includes('login')) return next();
   const response = await getLogginStatus(req);
+  console.log('Is not logged', response);
   if(!response.valid){
     res.redirect('/login');
   }
