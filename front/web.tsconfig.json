@@ -33,6 +33,7 @@
   ],
   "include": [
     "./src/javascript/**/*.tsx",
-    "./src/javascript/**/*.ts"
+    "./src/javascript/**/*.ts",
+    "./src/javascript/global.d.ts"
   ]
 }

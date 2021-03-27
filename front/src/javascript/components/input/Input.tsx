@@ -4,14 +4,21 @@ import styles from "./input.module.css";
 interface InputProps {
   type?: string;
   placeholder?: string;
+  extraClasses?: string[];
 }
 
-const Input: React.FC<InputProps> = (props: InputProps) => {
+const Input: React.FC<InputProps> = ({
+  type,
+  placeholder,
+  extraClasses = [],
+}) => {
+  const classes = extraClasses.join(" ") + " " + styles.twentyInput;
+
   return (
     <input
-      type={props.type || "text"}
-      className={styles.twentyInput}
-      placeholder={props.placeholder}
+      type={type || "text"}
+      className={classes}
+      placeholder={placeholder}
     ></input>
   );
 };

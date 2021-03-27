@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import Template from "../components/Template";
+import Template from "../components/template/Template";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Main from "./Main";
 

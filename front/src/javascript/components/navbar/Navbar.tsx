@@ -3,20 +3,25 @@ import Input from "../input/Input";
 import UploadPhotosButton from "../button/upload/UploadPhotosButton";
 import styles from "./navbar.module.css";
 
-const Navbar: React.FC<{}> = () => {
+interface NavbarProps {
+  containerClass: string;
+  contentClass: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
   return (
-    <div>
-      <div className={styles.navbar}>
+    <div className={`${styles.navbarContainer} ${containerClass}`}>
+      <div className={`${styles.navbar} ${contentClass}`}>
         <div className={styles.navbarLogo}>
           <img
             src="img/logo.png"
             alt="Twenty logo"
-            className={styles.logoImg}
+            className={styles.elementsHeight + " " + styles.logoSpacing}
           />
           <img
             src="img/text.png"
             alt="Twenty name"
-            className={styles.logoText}
+            className={styles.elementsHeight}
           />
         </div>
         <div className={styles.navbarLinks}>
@@ -35,8 +40,11 @@ const Navbar: React.FC<{}> = () => {
           <div>
             <a>Videos</a>
           </div>
-          <Input placeholder="Buscar..." />
-          <UploadPhotosButton />
+          <Input
+            placeholder="Buscar..."
+            extraClasses={[styles.elementsHeight]}
+          />
+          <UploadPhotosButton extraClasses={[styles.elementsHeight]} />
         </div>
         <div className={styles.navbarAccount}>
           <div>Mi cuenta</div>

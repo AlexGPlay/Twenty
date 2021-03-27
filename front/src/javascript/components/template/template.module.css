@@ -1,0 +1,9 @@
+.contentContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 1200px;
+}
