@@ -9,7 +9,11 @@ const Template: React.FC<{}> = ({ children }) => {
         containerClass={styles.contentContainer}
         contentClass={styles.content}
       />
-      <div className={styles.contentContainer}>
+      <div
+        className={
+          styles.contentContainer + " " + styles.contentContainerHeight
+        }
+      >
         <div className={styles.content}>{children}</div>
       </div>
     </>

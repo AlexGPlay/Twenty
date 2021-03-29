@@ -7,3 +7,7 @@
 .content {
   width: 1200px;
 }
+
+.contentContainerHeight {
+  height: calc(100% - 50px);
+}

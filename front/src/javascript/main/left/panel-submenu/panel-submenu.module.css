@@ -1,0 +1,13 @@
+.panelSubmenuContainer {
+  padding-top: 25px;
+  padding-right: 25px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.childrenContainer {
+  padding-top: 10px;
+}
