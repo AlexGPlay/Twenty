@@ -1,14 +1,16 @@
 import React from "react";
+import CenterContent from "./center";
 import LeftPanel from "./left/panel/LeftPanel";
 
 import styles from "./main.module.css";
+import RightContent from "./right";
 
 const Main: React.FC<{}> = () => {
   return (
     <div className={styles.main}>
       <LeftPanel />
-      <div>B</div>
-      <div>C</div>
+      <CenterContent />
+      <RightContent />
     </div>
   );
 };

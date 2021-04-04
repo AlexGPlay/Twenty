@@ -1,4 +1,5 @@
 import React from "react";
+import Events from "../events/events";
 import Invite from "../invite/Invite";
 import Container from "../user/Container";
 import styles from "./left-panel.module.css";
@@ -8,6 +9,7 @@ const LeftPanel: React.FC<{}> = () => {
     <div className={styles.leftPanel}>
       <Container />
       <Invite />
+      <Events />
     </div>
   );
 };

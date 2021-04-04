@@ -1,4 +1,4 @@
-.panelSubmenuContainer {
+.categoryContainer {
   padding-top: 25px;
   padding-right: 25px;
 }
@@ -10,4 +10,7 @@
 
 .childrenContainer {
   padding-top: 10px;
+  font-size: 12px;
+  color: #969696;
+  padding-bottom: 5px;
 }
