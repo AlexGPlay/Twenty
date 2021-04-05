@@ -1,0 +1,20 @@
+.register{
+  height: 100%;
+  background-color: #598cb7;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.logoContainer{
+  height: 60px;
+  display: flex;
+}
+
+.logo:first-of-type{
+  padding-right: 10px;
+}
+
+.logo{
+  height: 100%;
+}

@@ -25,7 +25,11 @@ app.use("/login", isLoggedMiddleware);
 app.use("/", isNotLoggedMiddleware);
 
 app.get("/", async (_, res) => {
-  res.render("main.html");
+  res.render("main.html", { jsFile: "main" });
+});
+
+app.get("/register", async (_, res) => {
+  res.render("main.html", { jsFile: "register" });
 });
 
 app.get("/login", async (_, res) => {

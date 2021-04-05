@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   entry: {
     login: './src/javascript/login/index.tsx',
+    register: './src/javascript/register/index.tsx',
     main: './src/javascript/main/index.tsx'
   },
   module: {
