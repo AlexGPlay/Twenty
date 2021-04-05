@@ -1,8 +1,9 @@
 import { User } from "../entities/User";
-import { Arg, Ctx, Field, Int, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
-import { ApolloContext } from "src/types";
+import { ApolloContext } from "../types";
+import invitationsQueue from "../queues/invitationQueue";
 
 @ObjectType()
 class FieldError{
@@ -52,11 +53,27 @@ export class UserResolver{
     return login(email, password, req);
   }
 
-  @Query(() => Int, {nullable: true})
+  @Query(() => User, {nullable: true})
   me(
     @Ctx() { req }: ApolloContext
   ){
-    return req.session.userId;
+    return User.findOne(req.session.userId);
+  }
+
+  @Mutation(() => Boolean)
+  async sendInvitation(
+    @Arg('email', () => String) email: string,
+    @Ctx() { req }: ApolloContext
+  ){
+    const user = await User.findOne(req.session.userId);
+    if(!user) return false;
+
+    const newEmail = await User.findOne({ where: { email } });
+    if(newEmail) return false;
+
+    invitationsQueue.add({ userId: user.id, newEmail: email });
+
+    return true;
   }
 
 }

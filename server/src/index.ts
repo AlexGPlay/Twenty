@@ -1,6 +1,7 @@
 import express from 'express';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
+import { useBullController } from './controller/bullController';
 import { useValidationController } from './controller/validationController';
 import { useApolloMiddleware } from './middleware/apolloMiddleware';
 import { useCorsMiddleware } from './middleware/corsMiddleware';
@@ -18,6 +19,7 @@ const main = async () => {
   await useApolloMiddleware(app);
 
   useValidationController(app);
+  useBullController(app);
 
   app.listen(appPort, () => console.log(`Server listening on ${appPort}`));
 }

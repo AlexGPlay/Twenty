@@ -5,3 +5,6 @@
 
 /front/dist
 /front/node_modules
+
+.env
+dump.rdb
