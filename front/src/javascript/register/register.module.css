@@ -1,20 +1,21 @@
-.register{
+.register {
   height: 100%;
   background-color: #598cb7;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 20px;
 }
 
-.logoContainer{
+.logoContainer {
   height: 60px;
   display: flex;
 }
 
-.logo:first-of-type{
+.logo:first-of-type {
   padding-right: 10px;
 }
 
-.logo{
+.logo {
   height: 100%;
 }
