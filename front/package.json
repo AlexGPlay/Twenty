@@ -25,7 +25,8 @@
     "react-dom": "^17.0.1",
     "react-query": "^3.3.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.10.1"
+    "webpack": "^5.10.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",

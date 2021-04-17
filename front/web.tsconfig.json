@@ -25,6 +25,7 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "downlevelIteration": true,
     "baseUrl": ".",
     "jsx": "react"
   },
