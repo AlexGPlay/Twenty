@@ -7,9 +7,11 @@ import { sendInvitationMail } from '../../mailer/mails/invitation';
 export async function sendInvitation(userId: number, email: string){
   await getConnection().transaction(async () => {
     const sender = await User.findOne(userId);
+    console.log("sender", sender);
     if(!sender) return;
 
     const toSend = await User.findOne({ where: { email } });
+    console.log("tosend", toSend);
     if(toSend) return;
 
     const uuid = uuidv4();
@@ -19,7 +21,7 @@ export async function sendInvitation(userId: number, email: string){
       toEmail: email,
       key: uuid
     }).save();
-
+    console.log("invitation", invitation);
     await sendInvitationMail(invitation);
   });
 }

@@ -10,6 +10,7 @@ const invitationsQueue = new Queue('invitations');
 
 invitationsQueue.process(job => {
   const { userId, newEmail }: InvitationData = job.data;
+  console.log("invitations queue");
   sendInvitation(userId, newEmail);
 });
 

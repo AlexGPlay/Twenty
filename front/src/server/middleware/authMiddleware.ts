@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
+import { BACKEND_SERVER } from '../constants';
 
 export async function isLoggedMiddleware(req: Request, res: Response, next: () => void){
   const response = await getLogginStatus(req);
@@ -29,7 +30,7 @@ async function getLogginStatus(req: Request){
     const headers = {} as any;
     if(req.headers.cookie) headers.cookie = req.headers.cookie as string;
 
-    const response = await fetch('http://localhost:4000/validate', {
+    const response = await fetch(`${BACKEND_SERVER}/validate`, {
       headers
     });
     return await response.json();

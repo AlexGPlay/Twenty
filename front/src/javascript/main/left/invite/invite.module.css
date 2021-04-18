@@ -17,3 +17,8 @@
 .input {
   height: 100%;
 }
+
+.errorMsg {
+  color: red;
+  margin-top: 5px;
+}

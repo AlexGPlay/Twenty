@@ -65,6 +65,7 @@ export class UserResolver{
     @Arg('email', () => String) email: string,
     @Ctx() { req }: ApolloContext
   ){
+    console.log("Resolver");
     const user = await User.findOne(req.session.userId);
     if(!user) return false;
 

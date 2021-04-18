@@ -4,10 +4,7 @@ import {
   isLoggedMiddleware,
   isNotLoggedMiddleware,
 } from "./middleware/authMiddleware";
-import ReactDOMServer from "react-dom/server";
-import Login from "../javascript/login/Login";
-import * as React from "react";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { BACKEND_SERVER } from "./constants";
 
 const appPort = 3000;
 const app = express();
@@ -28,8 +25,16 @@ app.get("/", async (_, res) => {
   res.render("main.html", { jsFile: "main" });
 });
 
-app.get("/register", async (_, res) => {
-  res.render("main.html", { jsFile: "register" });
+app.get("/register/:key", async (req, res) => {
+  const key = req.params.key;
+  const response = await fetch(`${BACKEND_SERVER}/invitation/${key}`);
+  const json = await response.json;
+  const valid = json['valid'];
+
+  if(valid){
+    return res.render("main.html", { jsFile: "register" });
+  }
+  res.redirect('/');
 });
 
 app.get("/login", async (_, res) => {
