@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon dist/server/server/index.js\" \"tsc -w --project server.tsconfig.json\" \"npx webpack --watch\""
+    "dev": "concurrently \"nodemon dist/server/index.js\" \"tsc -w --project server.tsconfig.json\" \"npx webpack --watch\""
   },
   "author": "",
   "license": "ISC",

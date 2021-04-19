@@ -1,5 +1,6 @@
 import path from "path";
 import express from "express";
+import fetch from 'node-fetch';
 import {
   isLoggedMiddleware,
   isNotLoggedMiddleware,
@@ -28,8 +29,8 @@ app.get("/", async (_, res) => {
 app.get("/register/:key", async (req, res) => {
   const key = req.params.key;
   const response = await fetch(`${BACKEND_SERVER}/invitation/${key}`);
-  const json = await response.json;
-  const valid = json['valid'];
+  const json = await response.json();
+  const valid = json.valid;
 
   if(valid){
     return res.render("main.html", { jsFile: "register" });
