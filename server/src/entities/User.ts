@@ -33,6 +33,22 @@ export class User extends BaseEntity{
   @Column({ default: '' })
   surname!: string;
 
+  @Field(() => Date)
+  @Column({ default: new Date() })
+  birthday!: Date;
+
+  @Field(() => String)
+  @Column({ default: '' })
+  city!: string;
+
+  @Field(() => String)
+  @Column({ default: '' })
+  country!: string;
+
+  @Field(() => String)
+  @Column({ default: '' })
+  gender!: string;
+
   @Field(() => Int)
   @Column({ default: 0 })
   visits!: Number;

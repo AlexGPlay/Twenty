@@ -5,6 +5,21 @@ import * as Yup from "yup";
 import styles from "./form.module.css";
 import { MONTHS, MONTH_DAYS, YEARS } from "../../util/dates";
 import { range } from "../../util/array";
+import { useRegisterMutation } from "../../queries/useRegisterMutation";
+
+interface RegisterFields {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  country: string;
+  city: string;
+  birthday: string;
+  birthmonth: string;
+  birthyear: string;
+  gender: string;
+  terms: boolean;
+}
 
 const RegisterForm: React.FC<{}> = () => {
   const [selectedDate, setSelectedDate] = useState({
@@ -18,6 +33,21 @@ const RegisterForm: React.FC<{}> = () => {
     () => setMonthDays(MONTH_DAYS(selectedDate.month, selectedDate.year)),
     [selectedDate]
   );
+
+  const register = useRegisterMutation();
+
+  const handleSubmit = async (values: RegisterFields) => {
+    const paths = window.location.pathname.split("/");
+    const key = paths[paths.length - 1].split("?")[0];
+
+    const fields = {
+      ...values,
+      key,
+      birthday: `${values.birthyear}-${values.birthmonth}-${values.birthday}`,
+    };
+    const response = await register.mutateAsync(fields);
+    console.log(response);
+  };
 
   const registerSchema = Yup.object().shape({
     name: Yup.string()
@@ -67,7 +97,7 @@ const RegisterForm: React.FC<{}> = () => {
               gender: "",
               terms: false,
             }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={handleSubmit}
             validationSchema={registerSchema}
             validateOnBlur={false}
             validateOnChange={false}

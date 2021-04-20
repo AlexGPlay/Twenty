@@ -1,5 +1,5 @@
 import { User } from "../entities/User";
-import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { Arg, Args, ArgsType, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
 import { ApolloContext } from "../types";
@@ -14,6 +14,39 @@ class FieldError{
   @Field()
   message: string;
 
+}
+
+@ArgsType()
+export class RegisterFields{
+  @Field(() => String)
+  key: string;
+
+  @Field(() => String)
+  name: string;
+
+  @Field(() => String)
+  surname: string;
+
+  @Field(() => String)
+  email: string;
+
+  @Field(() => String) 
+  password: string;
+
+  @Field(() => String)
+  country: string;
+
+  @Field(() => String)
+  city: string;
+
+  @Field(() => String)
+  birthday: string;
+
+  @Field(() => String)
+  gender: string;
+
+  @Field(() => Boolean)
+  terms: boolean;
 }
 
 @ObjectType()
@@ -37,11 +70,10 @@ export class UserResolver{
 
   @Mutation(() => UserResponse)
   async register(
-    @Arg('email', () => String!) email: string,
-    @Arg('password', () => String!) password: string,
+    @Args() registerFields: RegisterFields,
     @Ctx() { req }: ApolloContext
   ): Promise<UserResponse>{
-    return register(email, password, req);
+    return register(registerFields, req);
   }
 
   @Mutation(() => UserResponse)

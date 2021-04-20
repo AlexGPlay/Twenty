@@ -1,5 +1,5 @@
 import { MAILER_EMAIL, MAILER_HOST, MAILER_PORT, MAILER_PASSWORD } from './../secrets';
-import { createTransport, getTestMessageUrl, createTestAccount } from "nodemailer";
+import { createTransport, getTestMessageUrl } from "nodemailer";
 
 export async function sendMail(from: string, to: string, subject: string, text: string, htmlText?: string){
   const transporter = createTransport({

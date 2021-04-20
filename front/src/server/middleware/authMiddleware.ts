@@ -14,7 +14,7 @@ export async function isLoggedMiddleware(req: Request, res: Response, next: () =
 }
 
 export async function isNotLoggedMiddleware(req: Request, res: Response, next: () => void){
-  if(req.path.includes('login')) return next();
+  if(req.path.includes('login') || req.path.includes('register')) return next();
   const response = await getLogginStatus(req);
   console.log('Is not logged', response);
   if(!response.valid){
