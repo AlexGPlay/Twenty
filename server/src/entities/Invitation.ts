@@ -13,6 +13,9 @@ export class Invitation extends BaseEntity{
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column()
+  fromUserId: number;
+
   @ManyToOne(() => User, user => user.sentInvitations)
   fromUser: User;
 

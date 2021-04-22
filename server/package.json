@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon dist/index.js\" \"tsc -w\""
+    "dev": "concurrently \"nodemon dist/index.js\" \"tsc -w\"",
+    "repl": "node --experimental-repl-await dist/repl.js"
   },
   "author": "",
   "license": "ISC",

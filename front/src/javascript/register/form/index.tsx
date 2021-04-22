@@ -36,7 +36,7 @@ const RegisterForm: React.FC<{}> = () => {
 
   const register = useRegisterMutation();
 
-  const handleSubmit = async (values: RegisterFields) => {
+  const handleSubmit = async (values: RegisterFields, { setErrors  }: { setErrors: (errors: Record<string,string>) => void }) => {
     const paths = window.location.pathname.split("/");
     const key = paths[paths.length - 1].split("?")[0];
 
@@ -46,7 +46,19 @@ const RegisterForm: React.FC<{}> = () => {
       birthday: `${values.birthyear}-${values.birthmonth}-${values.birthday}`,
     };
     const response = await register.mutateAsync(fields);
-    console.log(response);
+    
+    if(!response.register.errors){
+      window.location.href = "/";
+      return;
+    }
+
+    const errors: Record<string,string> = {};
+    (response.register.errors as {field: string, message: string}[]).forEach(error => {
+      if(error.field in errors) return;
+      errors[error.field] = error.message;
+    });
+
+    setErrors(errors);
   };
 
   const registerSchema = Yup.object().shape({
@@ -89,7 +101,7 @@ const RegisterForm: React.FC<{}> = () => {
               surname: "",
               email: "",
               password: "",
-              country: "",
+              country: "spain",
               city: "",
               birthday: "1",
               birthmonth: "1",

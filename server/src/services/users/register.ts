@@ -1,3 +1,5 @@
+import { getConnection } from 'typeorm';
+import { Friendship } from './../../entities/Friendship';
 import { User } from "../../entities/User";
 import argon2 from "argon2";
 import { RegisterFields, UserResponse } from "../../resolvers/user";
@@ -18,15 +20,21 @@ interface UserFields{
 
 export async function register(fields: RegisterFields, req: Request): Promise<UserResponse>{
   const invitation = await Invitation.findOne({ where: { key: fields.key } });
+  console.log("Invitation", invitation);
   if(!invitation || invitation.claimed){
     return { errors: [{ field: 'all', message: 'Invitación invalida' }] }
   }
+
+  console.log("Fields", fields);
 
   if(!fields.terms){
     return { errors: [{ field: 'terms', message: 'Debes aceptar los términos y condiciones' }] }
   }
 
-  if(await User.findOne({ where: { email: fields.email } })){
+  const emailUser = await User.findOne({ where: { email: fields.email } });
+  console.log("Email user", emailUser);
+
+  if(emailUser){
     return { errors: [{ field: 'email', message: 'El email está en uso' }] }
   }
 
@@ -40,13 +48,30 @@ export async function register(fields: RegisterFields, req: Request): Promise<Us
 
   userFields.password = await argon2.hash(userFields.password);
 
-  const user = await User.create(userFields).save();
+  try{
+    return await getConnection().transaction(async (em) => {
+      const user = await em.create(User, userFields).save();
 
-  req.session.userId = user.id;
+      console.log("New user", user);
+      console.log("Invitation user", invitation.fromUser);
 
-  return { 
-    user
+      await em.create(Friendship, { friend1Id: invitation.fromUserId, friend2Id: user.id }).save();
+      
+      invitation.claimed = true;
+      await em.save(invitation);
+
+      req.session.userId = user.id;
+      
+      return { 
+        user
+      }
+    });
   }
+  catch(e){
+    console.error(e);
+    return { errors: [{ field: 'all', message: 'Ha ocurrido un error' }] };
+  }
+
 }
 
 function buildUserFields({ name, surname, email, password, birthday, city, country, gender }: RegisterFields): UserFields{

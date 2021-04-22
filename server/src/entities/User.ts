@@ -1,6 +1,7 @@
 import { Invitation } from './Invitation';
 import { ObjectType, Field, Int } from "type-graphql";
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Friendship } from './Friendship';
 
 @ObjectType()
 @Entity()
@@ -59,5 +60,8 @@ export class User extends BaseEntity{
 
   @OneToMany(() => Invitation, invitation => invitation.fromUser)
   sentInvitations: Invitation[];
+
+  @OneToMany(() => Friendship, friendship => friendship.friend1)
+  friendships: Friendship[];
 
 }
