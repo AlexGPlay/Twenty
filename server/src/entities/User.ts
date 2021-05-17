@@ -35,7 +35,7 @@ export class User extends BaseEntity{
   surname!: string;
 
   @Field(() => Date)
-  @Column({ default: new Date() })
+  @Column({ default: new Date(2000, 1, 1) })
   birthday!: Date;
 
   @Field(() => String)

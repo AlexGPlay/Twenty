@@ -97,9 +97,8 @@ export class UserResolver{
     @Arg('email', () => String) email: string,
     @Ctx() { req }: ApolloContext
   ){
-    console.log("Resolver");
     const user = await User.findOne(req.session.userId);
-    if(!user) return false;
+    if(!user || user.pendingInvitations <= 0) return false;
 
     const newEmail = await User.findOne({ where: { email } });
     if(newEmail) return false;

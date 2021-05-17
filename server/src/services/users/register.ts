@@ -1,4 +1,3 @@
-import { getConnection } from 'typeorm';
 import { Friendship } from './../../entities/Friendship';
 import { User } from "../../entities/User";
 import argon2 from "argon2";
@@ -6,6 +5,7 @@ import { RegisterFields, UserResponse } from "../../resolvers/user";
 import { Request } from 'express';
 import { Invitation } from "../../entities/Invitation";
 import * as Yup from "yup";
+import { startTransaction } from '../../util/db';
 
 interface UserFields{
   name: string;
@@ -49,13 +49,12 @@ export async function register(fields: RegisterFields, req: Request): Promise<Us
   userFields.password = await argon2.hash(userFields.password);
 
   try{
-    return await getConnection().transaction(async (em) => {
-      const user = await em.create(User, userFields).save();
+    return await startTransaction(async (em) => {
+      const user = await em.create(User, userFields);
+      await em.save(user);
 
-      console.log("New user", user);
-      console.log("Invitation user", invitation.fromUser);
-
-      await em.create(Friendship, { friend1Id: invitation.fromUserId, friend2Id: user.id }).save();
+      await em.insert(Friendship, { friend1Id: invitation.fromUserId, friend2Id: user.id });
+      await em.insert(Friendship, { friend2Id: invitation.fromUserId, friend1Id: user.id });
       
       invitation.claimed = true;
       await em.save(invitation);

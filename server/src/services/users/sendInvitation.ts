@@ -1,27 +1,34 @@
 import { Invitation } from './../../entities/Invitation';
-import { getConnection } from "typeorm";
 import { User } from './../../entities/User';
 import { v4 as uuidv4 } from 'uuid';
 import { sendInvitationMail } from '../../mailer/mails/invitation';
+import { startTransaction } from '../../util/db';
 
 export async function sendInvitation(userId: number, email: string){
-  await getConnection().transaction(async () => {
-    const sender = await User.findOne(userId);
-    console.log("sender", sender);
-    if(!sender) return;
+  try{
+    await startTransaction(async (manager) => {
+      const sender = await manager.findOne(User, userId);
+      if(!sender) return;
 
-    const toSend = await User.findOne({ where: { email } });
-    console.log("tosend", toSend);
-    if(toSend) return;
+      const toSend = await manager.findOne(User, { where: { email } });
+      if(toSend) return;
 
-    const uuid = uuidv4();
+      const uuid = uuidv4();
 
-    const invitation = await Invitation.create({
-      fromUser: sender,
-      toEmail: email,
-      key: uuid
-    }).save();
-    console.log("invitation", invitation);
-    await sendInvitationMail(invitation);
-  });
+      await manager.decrement(User, { id: userId }, 'pendingInvitations', 1);
+
+      const invitation = await manager.create(Invitation, {
+        fromUser: sender,
+        toEmail: email,
+        key: uuid
+      });
+
+      await manager.save(invitation);
+
+      await sendInvitationMail(invitation);
+    });
+  }
+  catch(e){
+    console.log(e);
+  }
 }
