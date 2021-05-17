@@ -1,16 +1,16 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import Template from "../components/template/Template";
 import { QueryClientProvider, QueryClient } from "react-query";
-import Main from "./Main";
+import App from "../App";
+import { ChatProvider } from "../context/ChatContext";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
-    <Template>
-      <Main />
-    </Template>
+    <ChatProvider>
+      <App />
+    </ChatProvider>
   </QueryClientProvider>,
   document.getElementById("app")
 );

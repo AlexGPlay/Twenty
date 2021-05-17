@@ -50,6 +50,10 @@ export class User extends BaseEntity{
   @Column({ default: '' })
   gender!: string;
 
+  @Field(() => Boolean)
+  @Column({ default: false })
+  connected!: boolean;
+
   @Field(() => Int)
   @Column({ default: 0 })
   visits!: Number;
