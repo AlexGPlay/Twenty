@@ -28,13 +28,13 @@ export function useSocketController(io: Server){
     socket.on('chatMessage', async (data) => {
       const msgInfo = { senderId: socket.request.userId, receiverId: data.toId, content: data.message };
 
-      socket.emit('chatMessage', msgInfo);
+      socket.emit('chatMessage', {...msgInfo, read: true});
 
       const userSocketId = await getValue(`io_${data.toId}`);
       if(!userSocketId) return;
       const userSocket = io.of('/').sockets.get(userSocketId);
       if(!userSocket) return;
-      userSocket.emit('chatMessage', msgInfo);
+      userSocket.emit('chatMessage', {...msgInfo, read: false});
     });
 
     socket.on('disconnect', async () => {

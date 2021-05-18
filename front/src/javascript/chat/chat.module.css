@@ -121,3 +121,19 @@
   border-right: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
 }
+
+.unreadMessages {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+}

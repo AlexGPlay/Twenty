@@ -1,16 +1,20 @@
 import * as React from "react";
 import styles from "./chat.module.css";
-import { useOpenChats } from "../context/ChatContext";
+import { useConnectedFriends, useOpenChats } from "../context/ChatContext";
 import ConnectionCircle from "../main/right/chat/connectionCircle";
 import { socket } from "../util/socket";
 import { useMeQuery } from "../queries/useMeQuery";
 
 const Chat = () => {
+  const { connectedFriends } = useConnectedFriends();
   const { openChats, setOpenChats } = useOpenChats();
   const { data } = useMeQuery("id");
 
   const [messages, setMessages] = React.useState<
-    Record<number, { senderId: number; receiverId: number; content: string }[]>
+    Record<
+      number,
+      { senderId: number; receiverId: number; content: string; read: boolean }[]
+    >
   >({});
   const [texts, setTexts] = React.useState<Record<number, string>>({});
 
@@ -18,10 +22,18 @@ const Chat = () => {
     socket.on("chatMessage", (msgData) => {
       const toAssignChat =
         msgData.senderId === data.me.id ? msgData.receiverId : msgData.senderId;
+      if (!openChats.find((chat) => chat.id === toAssignChat)) {
+        const toOpenChat = connectedFriends.find((f) => f.id === toAssignChat);
+        toOpenChat &&
+          setOpenChats?.([...openChats, { ...toOpenChat, open: false }]);
+      }
       const newMessages = { ...messages };
       newMessages[toAssignChat] = [
         ...(newMessages[toAssignChat] || []),
-        msgData,
+        {
+          ...msgData,
+          read: toAssignChat === openChats.find((c) => c.open)?.id,
+        },
       ];
       setMessages(newMessages);
     });
@@ -37,6 +49,8 @@ const Chat = () => {
     chatId: number
   ) => {
     evt.preventDefault();
+    if (!texts[chatId] || texts[chatId].length === 0) return;
+
     socket.emit("chatMessage", {
       toId: chatId,
       message: texts[chatId],
@@ -54,7 +68,13 @@ const Chat = () => {
             <div className={styles.chatTab}>
               <div className={styles.chatHeader}>
                 <div className={styles.chatUser}>
-                  <ConnectionCircle />
+                  <ConnectionCircle
+                    status={
+                      connectedFriends.find((cf) => cf.id === chat.id)
+                        ? "connected"
+                        : "disconnected"
+                    }
+                  />
                   <div>{chat.name + " " + chat.surname}</div>
                 </div>
                 <div className={styles.controls}>
@@ -100,6 +120,7 @@ const Chat = () => {
                 <form onSubmit={(evt) => handleFormSubmit(evt, chat.id)}>
                   <textarea
                     value={texts[chat.id]}
+                    disabled={!connectedFriends.find((cf) => cf.id === chat.id)}
                     onChange={(evt) =>
                       setTexts((curData) => ({
                         ...curData,
@@ -115,15 +136,27 @@ const Chat = () => {
               </div>
             </div>
           )}
+          {messages[chat.id]?.filter((m) => !m.read).length > 0 && (
+            <div className={styles.unreadMessages}>
+              {messages[chat.id]?.filter((m) => !m.read).length}
+            </div>
+          )}
           <img
             className={styles.img}
             src="/img/camera.png"
             title={chat.name + " " + chat.surname}
-            onClick={() =>
+            onClick={() => {
               setOpenChats?.((curState) =>
                 curState.map((c) => ({ ...c, open: c.id === chat.id }))
-              )
-            }
+              );
+              setMessages((curMessages) => ({
+                ...curMessages,
+                [chat.id]: curMessages[chat.id].map((msg) => ({
+                  ...msg,
+                  read: true,
+                })),
+              }));
+            }}
           />
         </div>
       ))}
