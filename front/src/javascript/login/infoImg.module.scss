@@ -1,0 +1,32 @@
+.infoImg {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  align-items: center;
+  width: 340px;
+  margin-bottom: 25px;
+
+  .imgContainer {
+    grid-column: 1/2;
+    height: 60%;
+
+    .img {
+      max-width: 45px;
+      max-height: 50px;
+    }
+  }
+
+  .textContainer {
+    grid-column: 2/3;
+    color: white;
+
+    .title {
+      font-weight: bold;
+    }
+
+    .description {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #cacdcf;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../components/button/twenty/Button";
 import InfoImg from "./InfoImg";
 import { useLogin } from "../queries/useLogin";
+import styles from "./login.module.scss";
 
 const Login: React.FC<{}> = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,11 @@ const Login: React.FC<{}> = () => {
     evt.preventDefault();
     const response = await login.mutateAsync({ email, password });
     if (response.login.errors) {
-      setErrors(response.login.errors.map((error: { field: string, message: string }) => error.field));
+      setErrors(
+        response.login.errors.map(
+          (error: { field: string; message: string }) => error.field
+        )
+      );
     } else {
       window.location.href = "/";
     }
@@ -24,37 +29,45 @@ const Login: React.FC<{}> = () => {
 
   return (
     <main>
-      <div className="info">
-        <div className="first-column-container">
-          <div className="logo">
-            <img src="img/logo.png" alt="Twenty logo" className="logo-img" />
-            <img src="img/text.png" alt="Twenty name" className="logo-text" />
+      <div className={styles.info}>
+        <div className={styles.firstColumnContainer}>
+          <div className={styles.logo}>
+            <img
+              src="img/logo.png"
+              alt="Twenty logo"
+              className={styles.logoImg}
+            />
+            <img
+              src="img/text.png"
+              alt="Twenty name"
+              className={styles.logoText}
+            />
           </div>
-          <div className="description">
-            <div className="title">¿Qué es Twenty?</div>
-            <div className="text">
+          <div className={styles.description}>
+            <div className={styles.title}>¿Qué es Twenty?</div>
+            <div className={styles.text}>
               Twenty es una plataforma social privada, a la que se accede
               únicamente por invitación. Cada día la usan entre millones de
               personas para comunicarse entre ellas y compartir información.
             </div>
           </div>
         </div>
-        <div className="second-column-container">
-          <div className="first-element">
+        <div className={styles.secondColumnContainer}>
+          <div className={styles.firstElement}>
             <InfoImg
               title="Social"
               description="Conéctate, comparte y comunicate con tus amigos, compañeros de trabajo y familia."
               imgPath="img/social.png"
             />
           </div>
-          <div className="second-element">
+          <div className={styles.secondElement}>
             <InfoImg
               title="Local"
               description="Descubre servicios locales y participa con las marcas que realmente te importan."
               imgPath="img/location.png"
             />
           </div>
-          <div className="third-element">
+          <div className={styles.thirdElement}>
             <InfoImg
               title="Móvil"
               description="Accede a Twenty desde tu móvil en tiempo real estés donde estés."
@@ -64,9 +77,9 @@ const Login: React.FC<{}> = () => {
         </div>
       </div>
       <form onSubmit={handleLogin}>
-        <div className="form">
-          <div className="form-main">
-            <div className="form-field">
+        <div className={styles.form}>
+          <div className={styles.formMain}>
+            <div className={styles.formField}>
               <label htmlFor="email">Email</label>
               <input
                 type="text"
@@ -74,13 +87,17 @@ const Login: React.FC<{}> = () => {
                 id="email"
                 value={email}
                 onChange={(evt) => setEmail(evt.target.value)}
-                style={{ 
-                  borderColor: errors.find(error => error === "email") ? 'red' : '',
-                  outlineColor: errors.find(error => error === "email") ? 'red' : ''
+                style={{
+                  borderColor: errors.find((error) => error === "email")
+                    ? "red"
+                    : "",
+                  outlineColor: errors.find((error) => error === "email")
+                    ? "red"
+                    : "",
                 }}
               />
             </div>
-            <div className="form-field">
+            <div className={styles.formField}>
               <label htmlFor="password">Contraseña</label>
               <input
                 type="password"
@@ -88,33 +105,37 @@ const Login: React.FC<{}> = () => {
                 id="password"
                 value={password}
                 onChange={(evt) => setPassword(evt.target.value)}
-                style={{ 
-                  borderColor: errors.find(error => error === "password") ? 'red' : '' ,
-                  outlineColor: errors.find(error => error === "password") ? 'red' : ''
+                style={{
+                  borderColor: errors.find((error) => error === "password")
+                    ? "red"
+                    : "",
+                  outlineColor: errors.find((error) => error === "password")
+                    ? "red"
+                    : "",
                 }}
               />
             </div>
-            <div className="form-button-container">
+            <div className={styles.formButtonContainer}>
               <Button text="Entrar" onClick={handleLogin} />
             </div>
           </div>
 
           <hr />
-          <div className="form-extra">
-            <div className="remember-me">
+          <div className={styles.formExtra}>
+            <div className={styles.rememberMe}>
               <input type="checkbox" name="remember-me" id="remember-me" />
               <label htmlFor="remember-me">Recordarme</label>
             </div>
-            <div className="forgot-password">
+            <div className={styles.forgotPassword}>
               <a href="#">¿Has olvidado tu contraseña?</a>
             </div>
           </div>
-          <div className="new-account">
+          <div className={styles.newAccount}>
             <a href="#">¿Quieres una cuenta?</a>
           </div>
         </div>
       </form>
-      <div className="footer">
+      <div className={styles.footer}>
         <div>
           <label>Twenty 2020</label>
           <label>Castellano</label>

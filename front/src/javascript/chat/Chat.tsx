@@ -60,9 +60,10 @@ const Chat = () => {
 
   return (
     <div className={styles.chatContainer}>
-      {openChats.map((chat) => (
+      {openChats.map((chat, idx) => (
         <div
           className={styles.imgContainer + " " + (chat.open ? styles.open : "")}
+          key={chat.id + "_" + idx}
         >
           {chat.open && (
             <div className={styles.chatTab}>

@@ -26,8 +26,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
-    "baseUrl": ".",
-    "jsx": "react"
+    "baseUrl": "./javascript",
+    "jsx": "react",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "exclude": [
     "node_modules"

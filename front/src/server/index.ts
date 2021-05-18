@@ -5,15 +5,38 @@ import {
   isLoggedMiddleware,
   isNotLoggedMiddleware,
 } from "./middleware/authMiddleware";
-import { BACKEND_SERVER } from "./constants";
+import { BACKEND_SERVER, DEVELOPMENT } from "./constants";
+import proxy from 'express-http-proxy';
+import httpProxy from 'http-proxy';
+import http from 'http';
 
 const appPort = 3000;
 const app = express();
+const server = http.createServer(app);
 
-app.use(
-  "/javascript",
-  express.static(path.join(process.cwd(), "dist", "javascript"))
-);
+if(!DEVELOPMENT){
+  app.use(
+    "/javascript",
+    express.static(path.join(process.cwd(), "dist", "javascript"))
+  );
+}
+else{
+  app.use('/javascript', proxy('localhost:9000', { proxyReqPathResolver: (req) => req.originalUrl }));
+  app.use('/sockjs-node', proxy('localhost:9000', { proxyReqPathResolver: (req) => req.originalUrl }));
+  app.use('/', (req,res,next) => {
+    if(req.url.includes('.hot-update.')){
+      return proxy('localhost:9000', { proxyReqPathResolver: (req) => '/javascript/' + req.originalUrl })(req,res,next);
+    }
+    next();
+  });
+
+  const proxyServer = httpProxy.createProxyServer({ target: 'http://localhost:9000', ws: true });
+  server.on('upgrade', (req, socket, head) => {
+    console.log("proxying upgrade request", req.url);
+    proxyServer.ws(req, socket, head);
+  });
+}
+
 app.use(express.static(path.join(process.cwd(), "src", "public")));
 
 app.set("views", path.join(process.cwd(), "src", "views"));
@@ -47,4 +70,4 @@ app.get("/login", async (_, res) => {
   res.render("index.html", { data: "" });
 });
 
-app.listen(appPort, () => console.log(`App listening on ${appPort}`));
+server.listen(appPort, () => console.log(`App listening on ${appPort}`));

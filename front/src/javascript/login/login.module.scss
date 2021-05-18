@@ -1,0 +1,272 @@
+body {
+  background-color: #598cb7;
+  color: white;
+}
+
+main {
+  margin: 5%;
+  margin-top: 15%;
+}
+
+input {
+  border-radius: 5px;
+  border-color: white;
+  padding: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo {
+  height: 6vh;
+  min-height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  text-align: center;
+  object-fit: contain;
+  max-width: 520px;
+}
+
+.logo .logoImg {
+  width: 15%;
+  margin-right: 10px;
+}
+
+.logo .logoText {
+  width: 50%;
+}
+
+.logo img {
+  max-height: 100%;
+}
+
+.form {
+  color: #2f557a;
+  font-weight: bold;
+  margin-bottom: 25px;
+  min-height: 160px;
+}
+
+.formField {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.formField label::after {
+  content: "\A";
+  white-space: pre;
+}
+
+.formField input {
+  margin-top: 5px;
+  width: 100%;
+  height: 30px;
+}
+
+hr {
+  border: none;
+  background-color: black;
+  opacity: 10%;
+  height: 1px;
+}
+
+.forgotPassword,
+.newAccount {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.forgotPassword a {
+  color: white;
+}
+
+.newAccount a {
+  color: white;
+  font-weight: bold;
+}
+
+.rememberMe {
+  display: none;
+}
+
+.description {
+  display: none;
+}
+
+.secondColumnContainer {
+  display: none;
+}
+
+.footer {
+  display: none;
+}
+
+@media (min-width: 1023px) {
+  main {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 20% 60% 20%;
+    margin: 0;
+  }
+
+  input {
+    border-radius: 5px;
+  }
+
+  hr {
+    display: none;
+  }
+
+  .form {
+    grid-row: 1/2;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 0.75em;
+    margin-right: 2vw;
+    display: grid;
+    grid-template-rows: 33% 20% 47%;
+    justify-content: end;
+  }
+
+  .formMain {
+    justify-self: end;
+    grid-row: 1/2;
+  }
+
+  .formField {
+    width: 190px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 0;
+  }
+
+  .formButtonContainer {
+    display: inline-block;
+    width: 95px;
+    margin-left: 5px;
+  }
+
+  .formButton {
+    height: 33px;
+  }
+
+  .formExtra {
+    border-bottom: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .forgotPassword {
+    grid-row: 2/3;
+  }
+
+  .newAccount {
+    grid-row: 3/4;
+    margin-top: 5px;
+    justify-self: end;
+  }
+
+  .rememberMe {
+    display: inline-block;
+    width: 200px;
+    color: white;
+    font-weight: normal;
+  }
+
+  .forgotPassword {
+    display: inline-block;
+    margin-top: 0;
+    font-weight: normal;
+  }
+
+  .forgotPassword a,
+  .new-account a {
+    color: #cacdcf;
+  }
+
+  .info {
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 340px;
+  }
+
+  .firstColumnContainer {
+    grid-row: 1/2;
+    justify-self: end;
+    border-right: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding-right: 50px;
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+    align-self: center;
+  }
+
+  .logo {
+    max-width: 550px;
+    height: 100px;
+    text-align: right;
+    float: right;
+  }
+
+  .description {
+    display: block;
+    float: right;
+    width: 363px;
+    text-align: right;
+  }
+
+  .description .title {
+    margin-top: 25px;
+    font-weight: bold;
+  }
+
+  .description .text {
+    margin-top: 10px;
+    color: #cacdcf;
+  }
+
+  .secondColumnContainer {
+    display: grid;
+    grid-template-rows: 33% 33% 33%;
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+    grid-column: 2/3;
+    align-self: center;
+    padding-left: 50px;
+  }
+
+  .firstElement {
+    grid-row: 1/2;
+  }
+
+  .secondElement {
+    grid-row: 2/3;
+  }
+
+  .thirdElement {
+    grid-row: 3/4;
+  }
+
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 40px;
+    margin-top: 60px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-top: 1px solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding-top: 15px;
+    font-size: 12px;
+  }
+
+  .footer > div:first-of-type > label:first-of-type {
+    margin-right: 20px;
+  }
+
+  .footer > div > label {
+    margin-right: 10px;
+  }
+}
