@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import styles from "./form.module.css";
+import styles from "./form.module.scss";
 import { MONTHS, MONTH_DAYS, YEARS } from "../../util/dates";
 import { range } from "../../util/array";
 import { useRegisterMutation } from "../../queries/useRegisterMutation";
@@ -36,7 +36,10 @@ const RegisterForm: React.FC<{}> = () => {
 
   const register = useRegisterMutation();
 
-  const handleSubmit = async (values: RegisterFields, { setErrors  }: { setErrors: (errors: Record<string,string>) => void }) => {
+  const handleSubmit = async (
+    values: RegisterFields,
+    { setErrors }: { setErrors: (errors: Record<string, string>) => void }
+  ) => {
     const paths = window.location.pathname.split("/");
     const key = paths[paths.length - 1].split("?")[0];
 
@@ -46,17 +49,19 @@ const RegisterForm: React.FC<{}> = () => {
       birthday: `${values.birthyear}-${values.birthmonth}-${values.birthday}`,
     };
     const response = await register.mutateAsync(fields);
-    
-    if(!response.register.errors){
+
+    if (!response.register.errors) {
       window.location.href = "/";
       return;
     }
 
-    const errors: Record<string,string> = {};
-    (response.register.errors as {field: string, message: string}[]).forEach(error => {
-      if(error.field in errors) return;
-      errors[error.field] = error.message;
-    });
+    const errors: Record<string, string> = {};
+    (response.register.errors as { field: string; message: string }[]).forEach(
+      (error) => {
+        if (error.field in errors) return;
+        errors[error.field] = error.message;
+      }
+    );
 
     setErrors(errors);
   };

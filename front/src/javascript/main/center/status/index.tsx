@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/button/twenty/Button";
 
-import styles from "./status.module.css";
+import styles from "./status.module.scss";
 
 const Status: React.FC<{}> = () => {
   return (

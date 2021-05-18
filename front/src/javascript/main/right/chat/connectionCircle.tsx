@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./connectionCircle.module.css";
+import styles from "./connectionCircle.module.scss";
 
 interface ConnectionCircleProps {
   status?: "connected" | "disconnected";

@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "./form";
 
-import styles from "./register.module.css";
+import styles from "./register.module.scss";
 
 const Register: React.FC<{}> = () => {
   return (

@@ -4,8 +4,8 @@ import Button from "../../../components/button/twenty/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import styles from "./invite.module.css";
-import inputStyles from "../../../components/input/input.module.css";
+import styles from "./invite.module.scss";
+import inputStyles from "../../../components/input/input.module.scss";
 import { useMeQuery } from "../../../queries/useMeQuery";
 import Loading from "../../../components/loading";
 import { useInvitationMutation } from "../../../queries/useInvitationMutation";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./button.module.css";
+import styles from "./button.module.scss";
 import Loading from "../../loading";
 
 type ButtonType = "light" | "dark";

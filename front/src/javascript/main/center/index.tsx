@@ -1,7 +1,7 @@
 import * as React from "react";
 import Status from "./status";
 
-import styles from "./center-content.module.css";
+import styles from "./center-content.module.scss";
 import News from "./news";
 
 const CenterContent: React.FC<{}> = () => {

@@ -3,7 +3,7 @@ import Category from "../../../components/category/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import styles from "./add-friends.module.css";
+import styles from "./add-friends.module.scss";
 
 const AddFriends: React.FC<{}> = () => {
   return (

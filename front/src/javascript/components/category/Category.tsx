@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./category.module.css";
+import styles from "./category.module.scss";
 
 interface CategoryProps {
   title: string;

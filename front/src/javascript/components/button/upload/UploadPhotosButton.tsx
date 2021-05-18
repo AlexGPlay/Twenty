@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import styles from "./upload-photos-button.module.css";
+import styles from "./upload-photos-button.module.scss";
 interface UploadPhotosButtonProps {
   extraClasses?: string[];
 }

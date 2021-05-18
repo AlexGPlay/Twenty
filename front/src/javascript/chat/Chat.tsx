@@ -1,5 +1,5 @@
 import * as React from "react";
-import styles from "./chat.module.css";
+import styles from "./chat.module.scss";
 import { useConnectedFriends, useOpenChats } from "../context/ChatContext";
 import ConnectionCircle from "../main/right/chat/connectionCircle";
 import { socket } from "../util/socket";

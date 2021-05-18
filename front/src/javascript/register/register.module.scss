@@ -1,0 +1,21 @@
+.register {
+  min-height: 100vh;
+  background-color: #598cb7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.logoContainer {
+  height: 60px;
+  display: flex;
+}
+
+.logo:first-of-type {
+  padding-right: 10px;
+}
+
+.logo {
+  height: 100%;
+}

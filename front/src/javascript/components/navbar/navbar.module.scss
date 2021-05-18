@@ -1,0 +1,67 @@
+.navbarContainer {
+  background-color: #4d78a4;
+  color: white;
+  height: 50px;
+  font-size: 14px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbarLogo {
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.logoSpacing {
+  margin-right: 2px;
+}
+
+.navbarLinks {
+  margin-left: 20px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.navbarLinks > * {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navbarLinks > .active {
+  background-color: #3a6c98;
+  font-weight: bold;
+}
+
+.navbarLinks > * {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.navbarLinks > input {
+  margin-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.navbarAccount {
+  margin-left: auto;
+}
+
+.navbarAccount {
+  display: flex;
+  align-items: center;
+}
+
+.navbarAccount > *:first-child {
+  margin-right: 30px;
+}
+
+.elementsHeight {
+  height: 30px;
+}

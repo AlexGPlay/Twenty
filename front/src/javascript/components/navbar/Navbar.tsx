@@ -1,7 +1,7 @@
 import * as React from "react";
 import Input from "../input/Input";
 import UploadPhotosButton from "../button/upload/UploadPhotosButton";
-import styles from "./navbar.module.css";
+import styles from "./navbar.module.scss";
 
 interface NavbarProps {
   containerClass: string;

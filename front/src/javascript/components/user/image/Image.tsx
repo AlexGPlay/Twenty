@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./image.module.css";
+import styles from "./image.module.scss";
 
 interface ImageProps {
   src: string;

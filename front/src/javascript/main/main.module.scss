@@ -1,0 +1,11 @@
+.main {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  column-gap: 20px;
+}
+
+.main > * {
+  padding-top: 25px;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
-import styles from "./template.module.css";
+import styles from "./template.module.scss";
 import Chat from "../../chat/Chat";
 
 const Template: React.FC<{}> = ({ children }) => {
