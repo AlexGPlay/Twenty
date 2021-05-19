@@ -1,12 +1,14 @@
+@use '../../../colors.scss';
+
 .divContainer {
   display: flex;
 }
 
 .statusContainer {
   padding: 10px;
-  border: 1px solid #969696;
+  border: 1px solid colors.$gray-1;
   font-size: 18px;
-  color: #969696;
+  color: colors.$gray-1;
   display: flex;
   flex: 1;
 }
@@ -30,11 +32,11 @@
 .triangle {
   width: 15px;
   height: 15px;
-  border: 1px solid #969696;
+  border: 1px solid colors.$gray-1;
   position: relative;
   top: 50%;
   transform: translateY(-50%) translateX(13px) rotate(45deg);
-  background: white;
+  background: colors.$white-1;
 }
 
 .updateTextContainer {
@@ -46,7 +48,7 @@
 
 .updateText {
   line-break: anywhere;
-  color: #969696;
+  color: colors.$gray-1;
   font-weight: bold;
   font-size: 15px;
 }

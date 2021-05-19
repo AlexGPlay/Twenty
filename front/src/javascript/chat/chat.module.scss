@@ -1,3 +1,5 @@
+@use '../colors.scss';
+
 .chatContainer {
   position: absolute;
   bottom: 0;
@@ -94,7 +96,7 @@
 }
 
 .sender.friend {
-  color: #4d78a4;
+  color: colors.$twenty-blue-light;
 }
 
 .input {
@@ -127,7 +129,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: green;
+  background-color: colors.$green-1;
   right: 0;
   top: 0;
   transform: translate(50%, -50%);

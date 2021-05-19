@@ -1,8 +1,10 @@
+@use '../../../colors.scss';
+
 .connectionCircle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: green;
+  background-color: colors.$green-1;
 }
 
 .connectionCircle.disconnected {

@@ -1,3 +1,5 @@
+@use '../colors.scss';
+
 .infoImg {
   display: grid;
   grid-template-columns: 20% 80%;
@@ -17,7 +19,7 @@
 
   .textContainer {
     grid-column: 2/3;
-    color: white;
+    color: colors.$white-1;
 
     .title {
       font-weight: bold;
@@ -26,7 +28,7 @@
     .description {
       font-size: 14px;
       margin-top: 5px;
-      color: #cacdcf;
+      color: colors.$light-gray-1;
     }
   }
 }

@@ -32,7 +32,6 @@ else{
 
   const proxyServer = httpProxy.createProxyServer({ target: 'http://localhost:9000', ws: true });
   server.on('upgrade', (req, socket, head) => {
-    console.log("proxying upgrade request", req.url);
     proxyServer.ws(req, socket, head);
   });
 }

@@ -1,3 +1,5 @@
+@use '../../../colors.scss';
+
 .text {
   font-size: 14px;
 }
@@ -13,12 +15,12 @@
 
 .searchDiv {
   padding: 5px 10px;
-  background-color: orange;
-  color: white;
+  background-color: colors.$orange-1;
+  color: colors.$white-1;
 }
 
 .textContainer {
   padding: 5px;
-  background: #f5f5f5;
-  color: #969696;
+  background: colors.$light-gray-1;
+  color: colors.$gray-1;
 }

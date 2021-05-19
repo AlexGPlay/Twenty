@@ -1,11 +1,13 @@
+@use '../../../colors.scss';
+
 .uploadPhotosButton {
-  background-color: #245a85;
+  background-color: colors.$twenty-blue-dark;
   margin-left: 15px;
-  color: white;
+  color: colors.$white-1;
   font-weight: bold;
   height: 25px;
-  border-radius: 5%;
-  border: 0;
+  border-radius: 5px;
+  border: 1px solid colors.$black-1;
 }
 
 .arrow {

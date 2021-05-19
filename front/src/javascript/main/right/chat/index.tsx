@@ -32,6 +32,7 @@ const Chat: React.FC<{}> = () => {
         {connectedFriends.map((f) => (
           <div
             className={styles.connectedFriend}
+            key={f.id}
             onClick={() =>
               setOpenChats?.((curChats) => {
                 const existsChat = curChats.find((c) => c.id === f.id);

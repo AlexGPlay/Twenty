@@ -1,7 +1,9 @@
+@use '../../../colors.scss';
+
 .news {
   margin-left: 20px;
   padding-top: 20px;
-  border-bottom: 1px solid #969696;
+  border-bottom: 1px solid colors.$gray-1;
   display: flex;
   align-items: flex-end;
 }
@@ -27,11 +29,11 @@
 }
 
 .active {
-  border: 1px solid #969696;
-  border-bottom: 1px solid white;
+  border: 1px solid colors.$gray-1;
+  border-bottom: 1px solid colors.$white-1;
   font-weight: bold;
 }
 
 .categories > *:not(.active) {
-  color: #4d78a4;
+  color: colors.$twenty-blue-light;
 }

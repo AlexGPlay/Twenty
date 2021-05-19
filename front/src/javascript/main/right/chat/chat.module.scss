@@ -1,3 +1,5 @@
+@use '../../../colors.scss';
+
 .categoryContainer {
   padding-top: 25px;
   padding-right: 25px;
@@ -11,7 +13,7 @@
 }
 
 .chatContainer {
-  border: 1px solid #969696;
+  border: 1px solid colors.$gray-1;
   padding: 10px;
 }
 
@@ -26,14 +28,14 @@
 
 .settings {
   margin-left: auto;
-  color: #4d78a4;
+  color: colors.$twenty-blue-light;
   font-weight: bold;
   font-size: 14px;
 }
 
 .chatStatus {
   font-size: 12px;
-  color: green;
+  color: colors.$green-1;
 }
 
 .connectedFriend {

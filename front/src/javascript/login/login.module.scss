@@ -1,6 +1,8 @@
+@use '../colors.scss';
+
 body {
-  background-color: #598cb7;
-  color: white;
+  background-color: colors.$twenty-blue-light;
+  color: colors.$white-1;
 }
 
 main {
@@ -10,7 +12,7 @@ main {
 
 input {
   border-radius: 5px;
-  border-color: white;
+  border-color: colors.$white-1;
   padding: 5px;
 }
 
@@ -43,7 +45,7 @@ a {
 }
 
 .form {
-  color: #2f557a;
+  color: colors.$twenty-blue-dark;
   font-weight: bold;
   margin-bottom: 25px;
   min-height: 160px;
@@ -67,7 +69,7 @@ a {
 
 hr {
   border: none;
-  background-color: black;
+  background-color: colors.$black-1;
   opacity: 10%;
   height: 1px;
 }
@@ -79,11 +81,11 @@ hr {
 }
 
 .forgotPassword a {
-  color: white;
+  color: colors.$white-1;
 }
 
 .newAccount a {
-  color: white;
+  color: colors.$white-1;
   font-weight: bold;
 }
 
@@ -154,7 +156,7 @@ hr {
 
   .formExtra {
     border-bottom: 1px solid;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(colors.$black-1, 0.1);
   }
 
   .forgotPassword {
@@ -170,7 +172,7 @@ hr {
   .rememberMe {
     display: inline-block;
     width: 200px;
-    color: white;
+    color: colors.$white-1;
     font-weight: normal;
   }
 
@@ -182,7 +184,7 @@ hr {
 
   .forgotPassword a,
   .new-account a {
-    color: #cacdcf;
+    color: colors.$light-gray-1;
   }
 
   .info {
@@ -196,7 +198,7 @@ hr {
     grid-row: 1/2;
     justify-self: end;
     border-right: 1px solid;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(colors.$black-1, 0.1);
     padding-right: 50px;
     padding-top: 8vh;
     padding-bottom: 8vh;
@@ -224,7 +226,7 @@ hr {
 
   .description .text {
     margin-top: 10px;
-    color: #cacdcf;
+    color: colors.$light-gray-1;
   }
 
   .secondColumnContainer {
@@ -257,7 +259,7 @@ hr {
     margin-left: 25px;
     margin-right: 25px;
     border-top: 1px solid;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(colors.$black-1, 0.1);
     padding-top: 15px;
     font-size: 12px;
   }

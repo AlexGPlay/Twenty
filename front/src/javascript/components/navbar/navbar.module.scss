@@ -1,6 +1,8 @@
+@use '../../colors.scss';
+
 .navbarContainer {
-  background-color: #4d78a4;
-  color: white;
+  background-color: colors.$twenty-blue-light;
+  color: colors.$white-1;
   height: 50px;
   font-size: 14px;
 }
@@ -34,7 +36,7 @@
 }
 
 .navbarLinks > .active {
-  background-color: #3a6c98;
+  background-color: colors.$twenty-blue-light;
   font-weight: bold;
 }
 

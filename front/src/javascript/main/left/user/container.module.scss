@@ -1,3 +1,5 @@
+@use '../../../colors.scss';
+
 .mainContainer {
   background-color: white;
   width: 100%;
@@ -17,7 +19,7 @@
 
 .username {
   font-weight: bold;
-  color: #4d78a4;
+  color: colors.$twenty-blue-light;
 }
 
 .visitsContainer {
@@ -31,7 +33,7 @@
 
 .visitCountText {
   padding-left: 5px;
-  color: #969696;
+  color: colors.$gray-1;
   font-size: 14px;
 }
 

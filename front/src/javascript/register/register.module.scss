@@ -1,6 +1,8 @@
+@use '../colors.scss';
+
 .register {
   min-height: 100vh;
-  background-color: #598cb7;
+  background-color: colors.$twenty-blue-light;
   display: flex;
   flex-direction: column;
   align-items: center;

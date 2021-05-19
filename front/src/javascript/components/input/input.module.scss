@@ -1,9 +1,11 @@
+@use '../../colors.scss';
+
 .twentyInput {
   border-radius: 5%;
-  border: 1px solid gray;
+  border: 1px solid colors.$gray-1;
   height: 25px;
 }
 
 .twentyInput.error {
-  border: 1px solid red;
+  border: 1px solid colors.$red-1;
 }
