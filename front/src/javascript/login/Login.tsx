@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import Button from "../components/button/twenty/Button";
+import Input from "../components/input/Input";
 import InfoImg from "./InfoImg";
 import { useLogin } from "../queries/useLogin";
 import styles from "./login.module.scss";
@@ -81,42 +82,33 @@ const Login: React.FC<{}> = () => {
           <div className={styles.formMain}>
             <div className={styles.formField}>
               <label htmlFor="email">Email</label>
-              <input
+              <Input
                 type="text"
                 name="email"
                 id="email"
+                autoComplete="email"
                 value={email}
                 onChange={(evt) => setEmail(evt.target.value)}
-                style={{
-                  borderColor: errors.find((error) => error === "email")
-                    ? "red"
-                    : "",
-                  outlineColor: errors.find((error) => error === "email")
-                    ? "red"
-                    : "",
-                }}
+                error={!!errors.find((error) => error === "email")}
               />
             </div>
             <div className={styles.formField}>
               <label htmlFor="password">Contraseña</label>
-              <input
+              <Input
                 type="password"
                 name="password"
                 id="password"
                 value={password}
                 onChange={(evt) => setPassword(evt.target.value)}
-                style={{
-                  borderColor: errors.find((error) => error === "password")
-                    ? "red"
-                    : "",
-                  outlineColor: errors.find((error) => error === "password")
-                    ? "red"
-                    : "",
-                }}
+                error={!!errors.find((error) => error === "password")}
               />
             </div>
             <div className={styles.formButtonContainer}>
-              <Button text="Entrar" onClick={handleLogin} />
+              <Button
+                text="Entrar"
+                onClick={handleLogin}
+                loading={login.isLoading}
+              />
             </div>
           </div>
 

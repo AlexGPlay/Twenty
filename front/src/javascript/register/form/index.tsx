@@ -164,11 +164,11 @@ const RegisterForm: React.FC<{}> = () => {
                   </ErrorMessage>
                 </div>
                 <div className={styles.fieldsContainer}>
-                  <Field id="name" name="name" />
+                  <Field id="name" name="name" autoComplete="name" />
                   <ErrorMessage name="name">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
                   </ErrorMessage>
-                  <Field id="surname" name="surname" />
+                  <Field id="surname" name="surname" autoComplete="surname" />
                   <ErrorMessage name="surname">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
                   </ErrorMessage>
@@ -176,7 +176,7 @@ const RegisterForm: React.FC<{}> = () => {
                     id="email"
                     name="email"
                     type="email"
-                    autocomplete="email"
+                    autoComplete="email"
                   />
                   <ErrorMessage name="email">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
@@ -185,26 +185,31 @@ const RegisterForm: React.FC<{}> = () => {
                     id="password"
                     name="password"
                     type="password"
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     maxLength={50}
                   />
                   <ErrorMessage name="password">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
                   </ErrorMessage>
                   <a href="#">Consejos para elegir una contraseña</a>
-                  <Field as="select" id="country" name="country">
+                  <Field
+                    as="select"
+                    id="country"
+                    name="country"
+                    autoComplete="country"
+                  >
                     <option value="spain">España</option>
                     <option value="argentina">Argentina</option>
                   </Field>
                   <ErrorMessage name="country">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
                   </ErrorMessage>
-                  <Field id="city" name="city" />
+                  <Field id="city" name="city" autoComplete="city" />
                   <ErrorMessage name="city">
                     {(msg) => <div className={styles.errorMessage}>{msg}</div>}
                   </ErrorMessage>
                   <div className={styles.birthdayContainer}>
-                    <select name="birthday">
+                    <select name="birthday" autoComplete="birthday">
                       {range(1, monthDays).map((day) => (
                         <option value={day} key={`day-${day}`}>
                           {day}
@@ -213,6 +218,7 @@ const RegisterForm: React.FC<{}> = () => {
                     </select>
                     <select
                       name="birthmonth"
+                      autoComplete="birthmonth"
                       onChange={(evt) =>
                         setSelectedDate({
                           ...selectedDate,
@@ -232,6 +238,7 @@ const RegisterForm: React.FC<{}> = () => {
                     </select>
                     <select
                       name="birthyear"
+                      autoComplete="birthyear"
                       onChange={(evt) =>
                         setSelectedDate({
                           ...selectedDate,
