@@ -1,17 +1,23 @@
 import * as React from "react";
 import Template from "./components/template/Template";
-import { useConnectedFriends } from "./context/ChatContext";
+import { Switch, Route } from "react-router-dom";
 import Main from "./main/Main";
 import { socket } from "./util/socket";
-import type { ConnectedFriendsData } from "./types/chat";
+import "./app.scss";
+import { ConnectedFriendsData } from "./types/chat";
+import {
+  useConnectedFriends,
+  useMessages,
+  useOpenChats,
+} from "./context/ChatContext";
 
 const App = () => {
-  const { setConnectedFriends } = useConnectedFriends();
+  const { connectedFriends, setConnectedFriends } = useConnectedFriends();
+  const { openChats, setOpenChats } = useOpenChats();
+  const { messages, setMessages } = useMessages();
 
   React.useEffect(() => {
-    socket.connect();
     socket.on("connectedFriends", (data: ConnectedFriendsData) => {
-      console.log("connectedFriends", data);
       if (data.status === "ownConnection") setConnectedFriends?.(data.data);
       else if (data.status === "connected")
         setConnectedFriends?.((curData) => [
@@ -29,9 +35,34 @@ const App = () => {
     });
   }, []);
 
+  React.useEffect(() => {
+    socket.on("chatMessage", (msgData) => {
+      const toAssignChat = connectedFriends.find(
+        (cf) => cf.id === msgData.senderId || cf.id === msgData.receiverId
+      )?.id;
+      if (!openChats.find((chat) => chat.id === toAssignChat)) {
+        const toOpenChat = connectedFriends.find((f) => f.id === toAssignChat);
+        toOpenChat &&
+          setOpenChats?.([...openChats, { ...toOpenChat, open: false }]);
+      }
+      const newMessages = { ...messages };
+      newMessages[toAssignChat] = [
+        ...(newMessages[toAssignChat] || []),
+        {
+          ...msgData,
+          read: toAssignChat === openChats.find((c) => c.open)?.id,
+        },
+      ];
+      setMessages?.(newMessages);
+    });
+    return () => socket.off("chatMessage");
+  }, [connectedFriends, openChats, messages]);
+
   return (
     <Template>
-      <Main />
+      <Switch>
+        <Route exact path="/" component={Main} />
+      </Switch>
     </Template>
   );
 };

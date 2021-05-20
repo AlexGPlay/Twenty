@@ -7,7 +7,7 @@ import styles from "./status.module.scss";
 
 const Status: React.FC<{}> = () => {
   return (
-    <div>
+    <div className={styles.editStatusContainer}>
       <div className={styles.divContainer}>
         <div className={styles.triangleContainer}>
           <div className={styles.triangle}></div>

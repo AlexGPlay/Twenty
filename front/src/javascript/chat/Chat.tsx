@@ -1,46 +1,19 @@
 import * as React from "react";
 import styles from "./chat.module.scss";
-import { useConnectedFriends, useOpenChats } from "../context/ChatContext";
+import {
+  useConnectedFriends,
+  useMessages,
+  useOpenChats,
+} from "../context/ChatContext";
 import ConnectionCircle from "../main/right/chat/connectionCircle";
 import { socket } from "../util/socket";
-import { useMeQuery } from "../queries/useMeQuery";
 
 const Chat = () => {
   const { connectedFriends } = useConnectedFriends();
   const { openChats, setOpenChats } = useOpenChats();
-  const { data } = useMeQuery("id");
 
-  const [messages, setMessages] = React.useState<
-    Record<
-      number,
-      { senderId: number; receiverId: number; content: string; read: boolean }[]
-    >
-  >({});
+  const { messages, setMessages } = useMessages();
   const [texts, setTexts] = React.useState<Record<number, string>>({});
-
-  React.useEffect(() => {
-    socket.on("chatMessage", (msgData) => {
-      const toAssignChat =
-        msgData.senderId === data.me.id ? msgData.receiverId : msgData.senderId;
-      if (!openChats.find((chat) => chat.id === toAssignChat)) {
-        const toOpenChat = connectedFriends.find((f) => f.id === toAssignChat);
-        toOpenChat &&
-          setOpenChats?.([...openChats, { ...toOpenChat, open: false }]);
-      }
-      const newMessages = { ...messages };
-      newMessages[toAssignChat] = [
-        ...(newMessages[toAssignChat] || []),
-        {
-          ...msgData,
-          read: toAssignChat === openChats.find((c) => c.open)?.id,
-        },
-      ];
-      setMessages(newMessages);
-    });
-    return () => {
-      socket.off("chatMessage");
-    };
-  });
 
   const handleFormSubmit = (
     evt:
@@ -100,8 +73,8 @@ const Chat = () => {
                 </div>
               </div>
               <div className={styles.conversation}>
-                {(messages[chat.id] || []).map((message) => (
-                  <div className={styles.message}>
+                {(messages[chat.id] || []).map((message, idx) => (
+                  <div className={styles.message} key={idx}>
                     <p
                       className={
                         styles.sender +
@@ -152,7 +125,7 @@ const Chat = () => {
               );
               setMessages((curMessages) => ({
                 ...curMessages,
-                [chat.id]: curMessages[chat.id].map((msg) => ({
+                [chat.id]: (curMessages[chat.id] || []).map((msg) => ({
                   ...msg,
                   read: true,
                 })),

@@ -1,10 +1,16 @@
 @use '../colors.scss';
+@use '../media.scss';
 
 .chatContainer {
-  position: absolute;
-  bottom: 0;
-  display: flex;
-  align-items: flex-end;
+  display: none;
+
+  @include media.desktop() {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+  }
 }
 
 .img {

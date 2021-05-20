@@ -1,3 +1,5 @@
+@use '../../media.scss';
+
 .contentContainer {
   width: 100%;
   display: flex;
@@ -5,7 +7,11 @@
 }
 
 .content {
-  width: 1200px;
+  width: 100%;
+
+  @include media.desktop() {
+    width: 1200px;
+  }
 }
 
 .contentContainerHeight {

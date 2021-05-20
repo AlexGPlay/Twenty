@@ -98,6 +98,7 @@ const Login: React.FC<{}> = () => {
                 type="password"
                 name="password"
                 id="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(evt) => setPassword(evt.target.value)}
                 error={!!errors.find((error) => error === "password")}

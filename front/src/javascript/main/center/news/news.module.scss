@@ -1,11 +1,22 @@
 @use '../../../colors.scss';
+@use '../../../media.scss';
 
 .news {
-  margin-left: 20px;
-  padding-top: 20px;
-  border-bottom: 1px solid colors.$gray-1;
-  display: flex;
-  align-items: flex-end;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  background-color: colors.$twenty-blue-dark;
+  color: colors.$white-1;
+
+  @include media.desktop() {
+    color: colors.$black-1;
+    background-color: transparent;
+    margin-right: 0;
+    padding-top: 20px;
+    border-bottom: 1px solid colors.$gray-1;
+  }
 }
 
 .newsLabel {

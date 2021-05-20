@@ -5,12 +5,14 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import styles from "./chat.module.scss";
 import {
   useConnectedFriends,
+  useMessages,
   useOpenChats,
 } from "../../../context/ChatContext";
 import ConnectionCircle from "./connectionCircle";
 
 const Chat: React.FC<{}> = () => {
   const { connectedFriends } = useConnectedFriends();
+  const { setMessages, messages } = useMessages();
   const { setOpenChats } = useOpenChats();
 
   return (
@@ -33,7 +35,7 @@ const Chat: React.FC<{}> = () => {
           <div
             className={styles.connectedFriend}
             key={f.id}
-            onClick={() =>
+            onClick={() => {
               setOpenChats?.((curChats) => {
                 const existsChat = curChats.find((c) => c.id === f.id);
                 if (!existsChat)
@@ -42,11 +44,23 @@ const Chat: React.FC<{}> = () => {
                     { ...f, open: true },
                   ];
                 return curChats.map((c) => ({ ...c, open: c.id === f.id }));
-              })
-            }
+              });
+              setMessages?.((curMessages) => ({
+                ...curMessages,
+                [f.id]: (curMessages[f.id] || []).map((msg) => ({
+                  ...msg,
+                  read: true,
+                })),
+              }));
+            }}
           >
             <ConnectionCircle />
             <p>{f.name + " " + f.surname}</p>
+            {(messages[f.id] || []).filter((m) => !m.read).length > 0 && (
+              <div className={styles.unreadMessages}>
+                {(messages[f.id] || []).filter((m) => !m.read).length}
+              </div>
+            )}
           </div>
         ))}
       </div>

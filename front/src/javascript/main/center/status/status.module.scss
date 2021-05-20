@@ -1,4 +1,13 @@
 @use '../../../colors.scss';
+@use '../../../media.scss';
+
+.editStatusContainer {
+  display: none;
+
+  @include media.desktop() {
+    display: block;
+  }
+}
 
 .divContainer {
   display: flex;
