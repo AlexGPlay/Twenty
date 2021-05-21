@@ -1,13 +1,13 @@
 import { gql } from "graphql-request";
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { client } from "../graphql/client";
-
-type InvitationFields = {
-  email: string;
-}
+import { InvitationFields, InvitationResponse } from "./invitationMutation";
+import { MeData } from "./meData";
 
 export const useInvitationMutation = () => {
-  return useMutation((invitationVariables: InvitationFields) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<InvitationResponse, any, InvitationFields>((invitationVariables: InvitationFields) => {
     return client.request(
       gql`
         mutation SendInvitation($email: String!){
@@ -15,5 +15,19 @@ export const useInvitationMutation = () => {
         }
       `, invitationVariables
     )
+  }, {
+    onSuccess: (result) => {
+      if(!result.sendInvitation) return;
+      const currentData = queryClient.getQueryData<MeData>('me');
+      queryClient.setQueryData<MeData>(
+        'me', 
+        { me: 
+          { 
+            ...currentData.me, 
+            pendingInvitations: currentData.me.pendingInvitations - 1
+          }
+        }
+      );
+    }
   });
 }

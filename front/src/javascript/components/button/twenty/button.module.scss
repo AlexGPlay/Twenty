@@ -8,6 +8,12 @@
   border: 1px solid colors.$black-1;
   border-radius: 5px;
   font-size: 1em;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
 }
 
 .light {

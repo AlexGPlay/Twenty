@@ -2,25 +2,26 @@ import * as React from "react";
 import styles from "./input.module.scss";
 
 type InputProps = {
-  extraClasses?: string[];
+  extraClasses?: string;
   error?: boolean;
+  ref?: React.RefObject<HTMLInputElement>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-const Input: React.FC<InputProps> = ({
-  extraClasses = [],
-  error = false,
-  ...props
-}) => {
-  const classes =
-    extraClasses.join(" ") +
-    " " +
-    styles.twentyInput +
-    " " +
-    (error ? styles.error : "");
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ extraClasses = [], error = false, ...props }, ref) => {
+    const classes = [extraClasses, styles.twentyInput, error && styles.error]
+      .filter(Boolean)
+      .join(" ");
 
-  return (
-    <input type={props.type || "text"} className={classes} {...props}></input>
-  );
-};
+    return (
+      <input
+        type={props.type || "text"}
+        className={classes}
+        {...props}
+        ref={ref}
+      ></input>
+    );
+  }
+);
 
 export default Input;

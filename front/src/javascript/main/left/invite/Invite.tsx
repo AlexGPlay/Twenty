@@ -1,17 +1,33 @@
 import React from "react";
 import Category from "../../../components/category/Category";
 import Button from "../../../components/button/twenty/Button";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
+import Input from "../../../components/input/Input";
 import styles from "./invite.module.scss";
-import inputStyles from "../../../components/input/input.module.scss";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useMeQuery } from "../../../queries/useMeQuery";
 import Loading from "../../../components/loading";
 import { useInvitationMutation } from "../../../queries/useInvitationMutation";
+import { useForm } from "react-hook-form";
+import { InvitationFields } from "../../../queries/invitationMutation";
 
 const Invite: React.FC<{}> = () => {
-  const { isLoading, data } = useMeQuery("pendingInvitations");
+  const { isLoading, data } = useMeQuery();
+
+  const inviteSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Introduce un email válido")
+      .required("Introduce un email"),
+  });
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<InvitationFields>({
+    resolver: yupResolver(inviteSchema),
+  });
 
   const invitationMutation = useInvitationMutation();
 
@@ -19,9 +35,10 @@ const Invite: React.FC<{}> = () => {
     return <Loading />;
   }
 
-  const inviteSchema = Yup.object().shape({
-    email: Yup.string().email("Introduce un email válido"),
-  });
+  const handleFormSubmit = async (data) => {
+    if (pendingInvitations <= 0) return;
+    await invitationMutation.mutateAsync(data);
+  };
 
   const { pendingInvitations }: { pendingInvitations: Number } = data.me;
 
@@ -31,41 +48,27 @@ const Invite: React.FC<{}> = () => {
         <span className={styles.textCount}>{pendingInvitations}</span>{" "}
         invitaciones
       </div>
-      <Formik
-        initialValues={{ email: "" }}
-        onSubmit={async (values, actions) => {
-          await invitationMutation.mutateAsync(values);
-          actions.setSubmitting(false);
-        }}
-        validationSchema={inviteSchema}
-      >
-        {({ errors, isSubmitting }) => (
-          <Form>
-            <div className={styles.inviteContainer}>
-              <Field
-                name="email"
-                placeholder="Email"
-                className={
-                  styles.input +
-                  " " +
-                  inputStyles.twentyInput +
-                  " " +
-                  (errors.email ? inputStyles.error : "")
-                }
-              />
-              <Button
-                text="Invitar"
-                buttonType="dark"
-                type="submit"
-                loading={isSubmitting}
-              />
-            </div>
-            <ErrorMessage name="email">
-              {(msg) => <div className={styles.errorMsg}>{msg}</div>}
-            </ErrorMessage>
-          </Form>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <div className={styles.inviteContainer}>
+          <Input
+            {...register("email")}
+            defaultValue=""
+            placeholder="Email"
+            error={!!errors.email}
+            extraClasses={styles.input}
+          />
+          <Button
+            text="Invitar"
+            buttonType="dark"
+            type="submit"
+            loading={invitationMutation.isLoading}
+            disabled={pendingInvitations <= 0}
+          />
+        </div>
+        {errors.email && (
+          <div className={styles.errorMsg}>{errors.email.message}</div>
         )}
-      </Formik>
+      </form>
     </Category>
   );
 };

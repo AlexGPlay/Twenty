@@ -1,27 +1,32 @@
 import * as React from "react";
-import { useState } from "react";
 import Button from "../components/button/twenty/Button";
 import Input from "../components/input/Input";
 import InfoImg from "./InfoImg";
 import { useLogin } from "../queries/useLogin";
 import styles from "./login.module.scss";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { LoginParams } from "../queries/loginData";
 
 const Login: React.FC<{}> = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [errors, setErrors] = useState<string[]>([]);
+  const {
+    handleSubmit,
+    setError,
+    register,
+    formState: { errors },
+  } = useForm<LoginParams>();
 
   const login = useLogin();
 
-  const handleLogin = async (evt: MouseEvent | React.FormEvent) => {
-    evt.preventDefault();
+  const handleLogin: SubmitHandler<LoginParams> = async ({
+    email,
+    password,
+  }) => {
     const response = await login.mutateAsync({ email, password });
     if (response.login.errors) {
-      setErrors(
-        response.login.errors.map(
-          (error: { field: string; message: string }) => error.field
-        )
+      response.login.errors.forEach((error) =>
+        setError(error.field as "email" | "password", {
+          message: error.message,
+        })
       );
     } else {
       window.location.href = "/";
@@ -77,39 +82,33 @@ const Login: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <div className={styles.form}>
           <div className={styles.formMain}>
             <div className={styles.formField}>
               <label htmlFor="email">Email</label>
               <Input
+                {...register("email", { required: true })}
                 type="text"
                 name="email"
                 id="email"
                 autoComplete="email"
-                value={email}
-                onChange={(evt) => setEmail(evt.target.value)}
-                error={!!errors.find((error) => error === "email")}
+                error={!!errors.email}
               />
             </div>
             <div className={styles.formField}>
               <label htmlFor="password">Contraseña</label>
               <Input
+                {...register("password", { required: true })}
                 type="password"
                 name="password"
                 id="password"
                 autoComplete="current-password"
-                value={password}
-                onChange={(evt) => setPassword(evt.target.value)}
-                error={!!errors.find((error) => error === "password")}
+                error={!!errors.password}
               />
             </div>
             <div className={styles.formButtonContainer}>
-              <Button
-                text="Entrar"
-                onClick={handleLogin}
-                loading={login.isLoading}
-              />
+              <Button text="Entrar" type="submit" loading={login.isLoading} />
             </div>
           </div>
 

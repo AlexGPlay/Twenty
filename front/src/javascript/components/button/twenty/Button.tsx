@@ -20,7 +20,12 @@ const Button: React.FC<ButtonProps> = ({
     !loading && props.onClick?.(evt);
 
   return (
-    <button className={cssClasses} onClick={handleClick} style={props.style}>
+    <button
+      className={cssClasses}
+      onClick={handleClick}
+      style={props.style}
+      {...props}
+    >
       {loading ? <Loading /> : text}
     </button>
   );

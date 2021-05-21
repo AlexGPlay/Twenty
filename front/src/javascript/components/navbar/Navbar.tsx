@@ -82,10 +82,10 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
           <Input
             name="searchbar"
             placeholder="Buscar..."
-            extraClasses={[styles.elementsHeight]}
+            extraClasses={styles.elementsHeight}
           />
           <UploadPhotosButton
-            extraClasses={[styles.elementsHeight]}
+            extraClasses={styles.elementsHeight}
             name="uploadphotos"
           />
         </div>

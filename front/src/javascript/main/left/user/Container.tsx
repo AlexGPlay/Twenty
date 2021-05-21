@@ -6,7 +6,7 @@ import { useMeQuery } from "../../../queries/useMeQuery";
 import styles from "./container.module.scss";
 
 const Container: React.FC<{}> = () => {
-  const { isLoading, data } = useMeQuery("name", "surname", "visits");
+  const { isLoading, data } = useMeQuery();
 
   if (isLoading) {
     return <Loading />;
