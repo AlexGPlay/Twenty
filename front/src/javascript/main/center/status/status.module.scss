@@ -57,9 +57,13 @@
 
 .updateText {
   line-break: anywhere;
-  color: colors.$gray-1;
+  color: colors.$black-1;
   font-weight: bold;
   font-size: 15px;
+}
+
+.updatedAgo {
+  color: colors.$gray-1;
 }
 
 .lastUpdate::before {
