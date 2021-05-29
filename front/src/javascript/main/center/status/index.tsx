@@ -21,7 +21,7 @@ const Status: React.FC<{}> = () => {
   };
 
   const dateDiff = useMemo(() => {
-    if (!data) return null;
+    if (!data?.currentStatus?.status) return null;
     const diff = biggestDateDiff(
       new Date(),
       new Date(parseInt(data.currentStatus.status.createdAt))
