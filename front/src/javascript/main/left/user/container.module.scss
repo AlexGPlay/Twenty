@@ -1,16 +1,5 @@
 @use '../../../colors.scss';
 
-.mainContainer {
-  background-color: white;
-  width: 100%;
-  height: auto;
-  padding: 10px;
-  padding-right: 25px;
-  border: 1px solid lightgray;
-  border-right: 0;
-  transform: translateX(1px);
-}
-
 .dataContainer {
   display: grid;
   grid-template-columns: 33% auto;

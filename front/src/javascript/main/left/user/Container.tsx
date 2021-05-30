@@ -1,4 +1,5 @@
 import React from "react";
+import EmptyContainer from "../../../components/left/emptyContainer/EmptyContainer";
 import Loading from "../../../components/loading";
 import Image from "../../../components/user/image/Image";
 import { useMeQuery } from "../../../queries/useMeQuery";
@@ -12,32 +13,26 @@ const Container: React.FC<{}> = () => {
     return <Loading />;
   }
 
-  const {
-    name,
-    surname,
-    visits,
-  }: { name: string; surname: string; visits: Number } = data.me;
+  const { name, surname, visits }: { name: string; surname: string; visits: Number } = data.me;
 
   return (
-    <div className={styles.mainContainer}>
+    <EmptyContainer padding>
       <div className={styles.dataContainer}>
         <div>
-          <Image src="/img/camera.png" />
+          <Image src="/img/camera.png" border />
         </div>
         <div>
           <div className={styles.username}>{name + " " + surname}</div>
           <div className={styles.visitsContainer}>
             <img src="/img/visits.svg" className={styles.visitsImage} />
             <div className={styles.visitCountText}>
-              <span className={styles.visitCount}>
-                {visits.toLocaleString("es-ES")}
-              </span>{" "}
-              visitas a tu perfil
+              <span className={styles.visitCount}>{visits.toLocaleString("es-ES")}</span> visitas a
+              tu perfil
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </EmptyContainer>
   );
 };
 

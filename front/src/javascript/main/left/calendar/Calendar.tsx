@@ -20,7 +20,7 @@ const Calendar: React.FC<{}> = () => {
   };
 
   return isLoading || isError ? null : (
-    <Category title="Calendario">
+    <Category title="Calendario" paddingRight>
       {Object.keys(content).map((group, idx) => (
         <div className={styles.calendarGroup} key={idx}>
           {content[group]}{" "}
@@ -28,9 +28,9 @@ const Calendar: React.FC<{}> = () => {
             <span> no tienes ningún evento</span>
           )}
           {data.getCalendarEvts.calendar[group].map((birthday, idx) => (
-            <div className={styles.evt}>
+            <div className={styles.evt} key={idx}>
               <FontAwesomeIcon icon={faGift} />
-              <div key={idx}>{birthday.text}</div>
+              <div>{birthday.text}</div>
               <div className={styles.date}>
                 {format(parseInt(birthday.date), "PP", { locale: es })}
               </div>

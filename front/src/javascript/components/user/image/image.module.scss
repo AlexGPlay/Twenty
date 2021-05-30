@@ -2,7 +2,18 @@
 
 .image {
   height: 80px;
-  border: 1px solid colors.$light-gray-2;
+}
+
+.small {
+  height: 80px;
+}
+
+.big {
+  height: 180px;
+}
+
+.auto {
+  height: auto;
 }
 
 .imageFrame {
@@ -14,5 +25,9 @@
 .img {
   width: 100%;
   height: 100%;
+  border: 1px solid colors.$light-gray-2;
+}
+
+.withBorder {
   border: 1px solid colors.$light-gray-2;
 }

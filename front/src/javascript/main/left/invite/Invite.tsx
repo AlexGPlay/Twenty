@@ -16,9 +16,7 @@ const Invite: React.FC<{}> = () => {
   const { isLoading, data } = useMeQuery();
 
   const inviteSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Introduce un email válido")
-      .required("Introduce un email"),
+    email: Yup.string().email("Introduce un email válido").required("Introduce un email"),
   });
 
   const {
@@ -43,10 +41,9 @@ const Invite: React.FC<{}> = () => {
   const { pendingInvitations }: { pendingInvitations: Number } = data.me;
 
   return (
-    <Category title="Invita a tus amigos">
+    <Category title="Invita a tus amigos" paddingRight>
       <div className={styles.textContainer}>
-        <span className={styles.textCount}>{pendingInvitations}</span>{" "}
-        invitaciones
+        <span className={styles.textCount}>{pendingInvitations}</span> invitaciones
       </div>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className={styles.inviteContainer}>
@@ -65,9 +62,7 @@ const Invite: React.FC<{}> = () => {
             disabled={pendingInvitations <= 0}
           />
         </div>
-        {errors.email && (
-          <div className={styles.errorMsg}>{errors.email.message}</div>
-        )}
+        {errors.email && <div className={styles.errorMsg}>{errors.email.message}</div>}
       </form>
     </Category>
   );

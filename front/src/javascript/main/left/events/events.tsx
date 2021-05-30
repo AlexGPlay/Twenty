@@ -3,7 +3,7 @@ import Category from "../../../components/category/Category";
 
 const Events: React.FC<{}> = () => {
   return (
-    <Category title="Eventos patrocinados">
+    <Category title="Eventos patrocinados" paddingRight>
       <div>No hay eventos actualmente</div>
     </Category>
   );

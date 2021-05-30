@@ -1,23 +1,31 @@
 import { User } from "../entities/User";
-import { Arg, Args, ArgsType, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Args,
+  ArgsType,
+  Ctx,
+  Field,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+} from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
 import { ApolloContext } from "../types";
 import invitationsQueue from "../queues/invitationQueue";
 
 @ObjectType()
-class FieldError{
-
+class FieldError {
   @Field()
   field: string;
 
   @Field()
   message: string;
-
 }
 
 @ArgsType()
-export class RegisterFields{
+export class RegisterFields {
   @Field(() => String)
   key: string;
 
@@ -30,7 +38,7 @@ export class RegisterFields{
   @Field(() => String)
   email: string;
 
-  @Field(() => String) 
+  @Field(() => String)
   password: string;
 
   @Field(() => String)
@@ -50,21 +58,18 @@ export class RegisterFields{
 }
 
 @ObjectType()
-export class UserResponse{
-  
+export class UserResponse {
   @Field(() => User, { nullable: true })
   user?: User;
 
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];
-
 }
 
 @Resolver(User)
-export class UserResolver{
-
+export class UserResolver {
   @Query(() => [User])
-  users(){
+  users() {
     return User.find();
   }
 
@@ -72,40 +77,39 @@ export class UserResolver{
   async register(
     @Args() registerFields: RegisterFields,
     @Ctx() { req }: ApolloContext
-  ): Promise<UserResponse>{
+  ): Promise<UserResponse> {
     return register(registerFields, req);
   }
 
   @Mutation(() => UserResponse)
   async login(
-    @Arg('email', () => String!) email: string,
-    @Arg('password', () => String!) password: string,
+    @Arg("email", () => String!) email: string,
+    @Arg("password", () => String!) password: string,
     @Ctx() { req }: ApolloContext
-  ): Promise<UserResponse>{
+  ): Promise<UserResponse> {
     return login(email, password, req);
   }
 
-  @Query(() => User, {nullable: true})
-  me(
-    @Ctx() { req }: ApolloContext
-  ){
+  @Query(() => User, { nullable: true })
+  me(@Ctx() { req }: ApolloContext) {
     return User.findOne(req.session.userId);
   }
 
+  @Query(() => User, { nullable: true })
+  user(@Arg("id", () => Number!) id: number, @Ctx() { req }: ApolloContext) {
+    return User.findOne(id);
+  }
+
   @Mutation(() => Boolean)
-  async sendInvitation(
-    @Arg('email', () => String) email: string,
-    @Ctx() { req }: ApolloContext
-  ){
+  async sendInvitation(@Arg("email", () => String) email: string, @Ctx() { req }: ApolloContext) {
     const user = await User.findOne(req.session.userId);
-    if(!user || user.pendingInvitations <= 0) return false;
+    if (!user || user.pendingInvitations <= 0) return false;
 
     const newEmail = await User.findOne({ where: { email } });
-    if(newEmail) return false;
+    if (newEmail) return false;
 
     invitationsQueue.add({ userId: user.id, newEmail: email });
 
     return true;
   }
-
 }

@@ -11,7 +11,8 @@ import {
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./navbar.module.scss";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
+import { useMeQuery } from "../../queries/useMeQuery";
 
 interface NavbarProps {
   containerClass: string;
@@ -20,6 +21,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
   const checkboxRef = React.useRef();
+  const { data } = useMeQuery();
+  const location = useLocation();
   const history = useHistory();
 
   const handleMenuClick = (evt) => {
@@ -34,19 +37,15 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
       <div className={`${styles.navbar} ${contentClass}`}>
         <div className={styles.navbarLogo}>
           <img
-            src="img/logo.png"
+            src="/img/logo.png"
             alt="Twenty logo"
             className={styles.elementsHeight + " " + styles.logoSpacing}
           />
-          <img
-            src="img/text.png"
-            alt="Twenty name"
-            className={styles.elementsHeight}
-          />
+          <img src="/img/text.png" alt="Twenty name" className={styles.elementsHeight} />
         </div>
         <div className={styles.navbarLinks}>
           <div
-            className={styles.active}
+            className={location.pathname === "/" ? styles.active : ""}
             data-path="/"
             onClick={handleMenuClick}
           >
@@ -55,7 +54,11 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
             </div>
             <a className={styles.navbarText}>Inicio</a>
           </div>
-          <div>
+          <div
+            className={location.pathname.includes("/profile/") ? styles.active : ""}
+            data-path={"/profile/" + data?.me?.id}
+            onClick={handleMenuClick}
+          >
             <div className={styles.navbarIcon}>
               <FontAwesomeIcon icon={faUserAlt} />
             </div>
@@ -79,15 +82,8 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
             </div>
             <a className={styles.navbarText}>Videos</a>
           </div>
-          <Input
-            name="searchbar"
-            placeholder="Buscar..."
-            extraClasses={styles.elementsHeight}
-          />
-          <UploadPhotosButton
-            extraClasses={styles.elementsHeight}
-            name="uploadphotos"
-          />
+          <Input name="searchbar" placeholder="Buscar..." extraClasses={styles.elementsHeight} />
+          <UploadPhotosButton extraClasses={styles.elementsHeight} name="uploadphotos" />
         </div>
         <div className={styles.navbarAccount}>
           <div>Mi cuenta</div>
