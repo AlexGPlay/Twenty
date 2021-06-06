@@ -1,0 +1,54 @@
+@use '../colors.scss';
+
+.timeAgo {
+  color: colors.$gray-1;
+  font-size: 12px;
+  padding-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.userStatus {
+  margin-top: 10px;
+}
+
+.title {
+  font-size: 22px;
+  padding-top: 20px;
+  color: colors.$black-1;
+
+  &.underlined {
+    border-bottom: 1px solid colors.$gray-1;
+  }
+}
+
+.personalContent {
+  padding-top: 20px;
+  font-size: 12px;
+  color: colors.$black-1;
+}
+
+.userBoardInput {
+  background-color: colors.$light-gray-1;
+  border: 1px solid colors.$gray-1;
+  padding: 10px;
+  height: 75px;
+  display: flex;
+  flex: 1;
+
+  & > *:first-child {
+    width: 10%;
+    max-height: 100%;
+  }
+
+  textarea {
+    resize: none;
+    width: 90%;
+  }
+
+  .userBoardContent {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+}

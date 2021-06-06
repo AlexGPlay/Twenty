@@ -1,70 +1,12 @@
+import { Status } from "./../entities/Status";
+import { Friendship } from "./../entities/Friendship";
 import { User } from "../entities/User";
-import {
-  Arg,
-  Args,
-  ArgsType,
-  Ctx,
-  Field,
-  Mutation,
-  ObjectType,
-  Query,
-  Resolver,
-} from "type-graphql";
+import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
 import { ApolloContext } from "../types";
 import invitationsQueue from "../queues/invitationQueue";
-
-@ObjectType()
-class FieldError {
-  @Field()
-  field: string;
-
-  @Field()
-  message: string;
-}
-
-@ArgsType()
-export class RegisterFields {
-  @Field(() => String)
-  key: string;
-
-  @Field(() => String)
-  name: string;
-
-  @Field(() => String)
-  surname: string;
-
-  @Field(() => String)
-  email: string;
-
-  @Field(() => String)
-  password: string;
-
-  @Field(() => String)
-  country: string;
-
-  @Field(() => String)
-  city: string;
-
-  @Field(() => String)
-  birthday: string;
-
-  @Field(() => String)
-  gender: string;
-
-  @Field(() => Boolean)
-  terms: boolean;
-}
-
-@ObjectType()
-export class UserResponse {
-  @Field(() => User, { nullable: true })
-  user?: User;
-
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
-}
+import { ProfileResponse, RegisterFields, UserResponse } from "./userTypes";
 
 @Resolver(User)
 export class UserResolver {
@@ -95,9 +37,23 @@ export class UserResolver {
     return User.findOne(req.session.userId);
   }
 
-  @Query(() => User, { nullable: true })
-  user(@Arg("id", () => Number!) id: number, @Ctx() { req }: ApolloContext) {
-    return User.findOne(id);
+  @Query(() => ProfileResponse, { nullable: true })
+  async user(
+    @Arg("id", () => Number!) id: number,
+    @Ctx() { req }: ApolloContext
+  ): Promise<ProfileResponse> {
+    const user = await User.findOne(id);
+    const friendship = await Friendship.findOne({
+      where: { friend1Id: req.session.userId, friend2Id: id },
+    });
+    const status = await Status.findOne({ where: { userId: id }, order: { id: "DESC" } });
+
+    return {
+      user,
+      friendship: !!friendship,
+      status,
+      isMyself: id === req.session.userId,
+    };
   }
 
   @Mutation(() => Boolean)

@@ -27,7 +27,7 @@ export class CalendarResolver {
       calType.push({
         date: new Date(res.next_birthday).getTime().toString(),
         text: `${res.name} ${res.surname}`,
-        url: `cosa/${res.id}`,
+        url: `/profile/${res.id}`,
       });
     });
 

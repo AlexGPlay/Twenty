@@ -1,0 +1,42 @@
+@use '../../colors.scss';
+
+.divContainer {
+  display: flex;
+  transform: translateX(-20px);
+  width: calc(100% + 20px);
+  overflow-wrap: anywhere;
+}
+.triangleContainer {
+  width: 20px;
+  height: inherit;
+  overflow: hidden;
+  transform: translateX(1px);
+}
+
+.triangle {
+  width: 15px;
+  height: 15px;
+  border: 1px solid colors.$gray-1;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%) translateX(13px) rotate(45deg);
+  background: colors.$white-1;
+}
+
+.statusContainer {
+  padding: 10px;
+  border: 1px solid colors.$gray-1;
+  font-size: 18px;
+  display: flex;
+  flex: 1;
+}
+
+.light {
+  color: colors.$gray-1;
+  background-color: colors.$white-1;
+}
+
+.dark {
+  color: colors.$gray-2;
+  background-color: colors.$light-gray-1;
+}

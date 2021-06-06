@@ -24,8 +24,9 @@ if (!DEVELOPMENT) {
   );
   app.use("/", (req, res, next) => {
     if (req.url.includes(".hot-update.")) {
+      const path = req.originalUrl.split("/");
       return proxy("localhost:9000", {
-        proxyReqPathResolver: (req) => "/javascript/" + req.originalUrl,
+        proxyReqPathResolver: () => "/javascript/" + path[path.length - 1],
       })(req, res, next);
     }
     next();

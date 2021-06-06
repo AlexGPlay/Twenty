@@ -1,13 +1,20 @@
-import { Invitation } from './Invitation';
+import { Invitation } from "./Invitation";
 import { ObjectType, Field, Int } from "type-graphql";
-import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Friendship } from './Friendship';
-import { Status } from './Status';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { Friendship } from "./Friendship";
+import { Status } from "./Status";
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity{
-
+export class User extends BaseEntity {
   @Field(() => Int)
   @PrimaryGeneratedColumn()
   id!: number;
@@ -21,18 +28,18 @@ export class User extends BaseEntity{
   updatedAt: Date;
 
   @Field(() => String)
-  @Column({unique: true})
+  @Column({ unique: true })
   email!: string;
 
   @Column()
   password!: string;
 
   @Field(() => String)
-  @Column({ default: '' })
+  @Column({ default: "" })
   name!: string;
 
   @Field(() => String)
-  @Column({ default: '' })
+  @Column({ default: "" })
   surname!: string;
 
   @Field(() => Date)
@@ -40,15 +47,15 @@ export class User extends BaseEntity{
   birthday!: Date;
 
   @Field(() => String)
-  @Column({ default: '' })
+  @Column({ default: "" })
   city!: string;
 
   @Field(() => String)
-  @Column({ default: '' })
+  @Column({ default: "" })
   country!: string;
 
   @Field(() => String)
-  @Column({ default: '' })
+  @Column({ default: "" })
   gender!: string;
 
   @Field(() => Boolean)
@@ -63,13 +70,12 @@ export class User extends BaseEntity{
   @Column({ default: 10 })
   pendingInvitations!: Number;
 
-  @OneToMany(() => Invitation, invitation => invitation.fromUser)
+  @OneToMany(() => Invitation, (invitation) => invitation.fromUser)
   sentInvitations: Invitation[];
 
-  @OneToMany(() => Friendship, friendship => friendship.friend1)
+  @OneToMany(() => Friendship, (friendship) => friendship.friend1)
   friendships: Friendship[];
 
-  @OneToMany(() => Status, status => status.user)
+  @OneToMany(() => Status, (status) => status.user)
   status: Status[];
-
 }

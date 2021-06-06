@@ -2,21 +2,23 @@ import React from "react";
 import Category from "../../../components/category/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Text from "../../../components/text/Text";
 
-import styles from "./add-friends.module.scss";
+import SimpleButton from "../../../components/button/simple/SimpleButton";
 
 const AddFriends: React.FC<{}> = () => {
   return (
     <Category title="Añadir amigos">
-      <label className={styles.text}>¿Amigos en Hotmail, Gmail o Yahoo?</label>
-      <button className={styles.button}>
-        <div className={styles.buttonContainer}>
-          <div className={styles.searchDiv}>
-            <FontAwesomeIcon icon={faSearch} />
-          </div>
-          <div className={styles.textContainer}>Buscar amigos</div>
-        </div>
-      </button>
+      <Text color="gray-1" size={14}>
+        ¿Amigos en Hotmail, Gmail o Yahoo?
+      </Text>
+      <SimpleButton
+        icon={<FontAwesomeIcon icon={faSearch} />}
+        iconBackground="var(--orange-1)"
+        iconColor="var(--white-1)"
+      >
+        Buscar amigos
+      </SimpleButton>
     </Category>
   );
 };

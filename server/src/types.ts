@@ -1,18 +1,18 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
     userId: number;
   }
 }
 
-declare module 'node:http' {
+declare module "http" {
   interface IncomingMessage {
     userId: number;
   }
 }
 
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
     userId: number;
   }
@@ -21,4 +21,4 @@ declare module 'express-session' {
 export type ApolloContext = {
   req: Request;
   res: Response;
-}
+};

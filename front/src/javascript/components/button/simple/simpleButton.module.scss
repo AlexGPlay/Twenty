@@ -1,0 +1,25 @@
+@use '../../../colors.scss';
+
+.button {
+  margin-top: 10px;
+  padding: 0;
+  font-size: 14px;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.textContainer {
+  background: colors.$light-gray-1;
+  color: colors.$gray-1;
+}
+
+.iconDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  color: colors.$gray-1;
+  background: colors.$light-gray-1;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import EmptyContainer from "../../../components/left/emptyContainer/EmptyContainer";
 import Loading from "../../../components/loading";
 import Image from "../../../components/user/image/Image";
@@ -22,7 +23,9 @@ const Container: React.FC<{}> = () => {
           <Image src="/img/camera.png" border />
         </div>
         <div>
-          <div className={styles.username}>{name + " " + surname}</div>
+          <Link to={"/profile/" + data.me.id} className={styles.username}>
+            {name + " " + surname}
+          </Link>
           <div className={styles.visitsContainer}>
             <img src="/img/visits.svg" className={styles.visitsImage} />
             <div className={styles.visitCountText}>

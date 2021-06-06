@@ -1,5 +1,6 @@
 import React from "react";
 import Category from "../../../components/category/Category";
+import { Link } from "react-router-dom";
 import { useCalendarEventsQuery } from "../../../queries/useCalendarEventsQuery";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGift } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +10,6 @@ import styles from "./calendar.module.scss";
 
 const Calendar: React.FC<{}> = () => {
   const { data, isLoading, isError } = useCalendarEventsQuery();
-
-  console.log(data);
 
   const content = {
     today: "Hoy",
@@ -30,7 +29,7 @@ const Calendar: React.FC<{}> = () => {
           {data.getCalendarEvts.calendar[group].map((birthday, idx) => (
             <div className={styles.evt} key={idx}>
               <FontAwesomeIcon icon={faGift} />
-              <div>{birthday.text}</div>
+              <Link to={birthday.url}>{birthday.text}</Link>
               <div className={styles.date}>
                 {format(parseInt(birthday.date), "PP", { locale: es })}
               </div>
