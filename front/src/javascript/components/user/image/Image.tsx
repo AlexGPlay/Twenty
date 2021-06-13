@@ -6,12 +6,26 @@ interface ImageProps {
   src: string;
   size?: "small" | "big" | "auto";
   border?: boolean;
+  className?: string;
+  withoutPadding?: boolean;
 }
 
-const Image: React.FC<ImageProps> = ({ src, size = "small", border = false }) => {
+const Image: React.FC<ImageProps> = ({
+  src,
+  className = "",
+  size = "small",
+  border = false,
+  withoutPadding = false,
+}) => {
   return (
-    <div className={styles.image + " " + styles[size] + " " + (border ? styles.withBorder : "")}>
-      <div className={styles.imageFrame}>
+    <div
+      className={[styles.image, className, styles[size], border ? styles.withBorder : ""].join(" ")}
+    >
+      <div
+        className={
+          styles.imageFrame + " " + (withoutPadding ? styles.withoutPadding : styles.padding)
+        }
+      >
         <img className={styles.img} src={src} />
       </div>
     </div>

@@ -5,7 +5,7 @@ import { Request } from "express";
 import { Invitation } from "../../entities/Invitation";
 import * as Yup from "yup";
 import { startTransaction } from "../../util/db";
-import { RegisterFields, UserResponse } from "src/resolvers/userTypes";
+import { RegisterFields, UserResponse } from "src/resolvers/types/userTypes";
 
 interface UserFields {
   name: string;

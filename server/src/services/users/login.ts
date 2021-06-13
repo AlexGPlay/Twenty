@@ -1,7 +1,7 @@
 import { User } from "../../entities/User";
 import { Request } from "express";
 import argon2 from "argon2";
-import { UserResponse } from "../../resolvers/userTypes";
+import { UserResponse } from "../../resolvers/types/userTypes";
 
 export async function login(email: string, password: string, req: Request): Promise<UserResponse> {
   const user = await User.findOne({ where: { email } });

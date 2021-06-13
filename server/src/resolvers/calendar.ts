@@ -1,15 +1,15 @@
-import { Ctx, Query, Resolver } from "type-graphql";
+import { isAuth } from "./middleware/isAuth";
+import { Ctx, Query, Resolver, UseMiddleware } from "type-graphql";
 import { ApolloContext } from "../types";
 import { findCalendarEvts } from "../finders/calendar";
-import { CalendarEvts } from "./calendarTypes";
-import { CalendarEvtGroup } from "./calendarTypes";
+import { CalendarEvts, CalendarEvtGroup } from "./types/calendarTypes";
 
 @Resolver()
 export class CalendarResolver {
   @Query(() => CalendarEvts)
+  @UseMiddleware(isAuth)
   async getCalendarEvts(@Ctx() { req }: ApolloContext): Promise<CalendarEvts> {
-    if (!req.session.userId) return { error: "authentication_error" };
-    const calendarResults = await findCalendarEvts(req.session.userId);
+    const calendarResults = await findCalendarEvts(req.session.userId!);
     const calendar: CalendarEvtGroup = {
       today: [],
       tomorrow: [],

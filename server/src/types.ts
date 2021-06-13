@@ -1,3 +1,5 @@
+import { createProfileCommentLoader } from "./loaders/createProfileCommentLoader";
+import { createUserLoader } from "./loaders/createUserLoader";
 import { Request, Response } from "express";
 
 declare module "express-session" {
@@ -21,4 +23,6 @@ declare module "express-session" {
 export type ApolloContext = {
   req: Request;
   res: Response;
+  userLoader: ReturnType<typeof createUserLoader>;
+  profileCommentLoader: ReturnType<typeof createProfileCommentLoader>;
 };

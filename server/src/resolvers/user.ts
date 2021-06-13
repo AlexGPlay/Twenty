@@ -1,12 +1,13 @@
+import { isAuth } from "./middleware/isAuth";
 import { Status } from "./../entities/Status";
 import { Friendship } from "./../entities/Friendship";
 import { User } from "../entities/User";
-import { Arg, Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Args, Ctx, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { register } from "../services/users/register";
 import { login } from "../services/users/login";
 import { ApolloContext } from "../types";
 import invitationsQueue from "../queues/invitationQueue";
-import { ProfileResponse, RegisterFields, UserResponse } from "./userTypes";
+import { ProfileResponse, RegisterFields, UserResponse } from "./types/userTypes";
 
 @Resolver(User)
 export class UserResolver {
@@ -57,6 +58,7 @@ export class UserResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseMiddleware(isAuth)
   async sendInvitation(@Arg("email", () => String) email: string, @Ctx() { req }: ApolloContext) {
     const user = await User.findOne(req.session.userId);
     if (!user || user.pendingInvitations <= 0) return false;

@@ -1,5 +1,5 @@
-import { Status } from "../entities/Status";
-import { User } from "../entities/User";
+import { Status } from "../../entities/Status";
+import { User } from "../../entities/User";
 import { ArgsType, Field, ObjectType } from "type-graphql";
 
 @ObjectType()

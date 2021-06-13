@@ -13,10 +13,17 @@ import TalkBubble from "../components/talkBubble/TalkBubble";
 import { useMemo } from "react";
 import { dateDiffAsString } from "../util/dates";
 import styles from "./profile.module.scss";
+import { useProfileCommentsQuery } from "../queries/useProfileCommentsQuery";
+import Comment from "../components/comment/Comment";
 
 const Profile = () => {
   const { user } = useParams<{ user: string }>();
   const { isLoading, isError, data } = useUserQuery(parseInt(user));
+  const {
+    isLoading: commentsLoading,
+    isError: commentsError,
+    data: commentsData,
+  } = useProfileCommentsQuery(parseInt(user));
 
   const dateDiff = useMemo(() => {
     if (!data || !data?.user?.status) return;
@@ -86,7 +93,16 @@ const Profile = () => {
             <Image src="/img/camera.png" />
             <textarea placeholder="Escribe aquí..." />
           </div>
-          <div className={styles.userBoardContent}>¡Sé el primero en comentar algo!</div>
+          <div className={styles.userBoardContent}>
+            {commentsData.getProfileComments.length === 0
+              ? "¡Sé el primero en comentar algo!"
+              : commentsData.getProfileComments.map((comment, commentIdx) => (
+                  <>
+                    <Comment comment={comment} key={commentIdx} />
+                    <hr />
+                  </>
+                ))}
+          </div>
         </div>
       </div>
       <div>

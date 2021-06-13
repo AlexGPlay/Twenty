@@ -5,7 +5,8 @@
 }
 
 .small {
-  height: 80px;
+  height: 50px;
+  width: 50px;
 }
 
 .big {
@@ -19,13 +20,21 @@
 .imageFrame {
   width: 100%;
   height: 100%;
-  padding: 5px;
+
+  &.withoutPadding {
+    padding: 0;
+  }
+
+  &.padding {
+    padding: 5px;
+  }
 }
 
 .img {
   width: 100%;
   height: 100%;
   border: 1px solid colors.$light-gray-2;
+  background-color: white;
 }
 
 .withBorder {

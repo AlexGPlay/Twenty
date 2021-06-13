@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { Friendship } from "./Friendship";
 import { Status } from "./Status";
+import { ProfileComment } from "./ProfileComment";
 
 @ObjectType()
 @Entity()
@@ -78,4 +79,10 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Status, (status) => status.user)
   status: Status[];
+
+  @OneToMany(() => ProfileComment, (profileComment) => profileComment.commentedTo)
+  profileComments: ProfileComment[];
+
+  @OneToMany(() => ProfileComment, (profileComment) => profileComment.commentedBy)
+  sentProfileComments: ProfileComment[];
 }

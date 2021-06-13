@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"nodemon dist/index.js\" \"tsc -w\"",
+    "build": "tsc",
     "repl": "node --experimental-repl-await dist/repl.js"
   },
   "author": "",
@@ -17,6 +18,7 @@
     "class-validator": "^0.13.1",
     "connect-pg-simple": "^6.2.1",
     "cors": "^2.8.5",
+    "dataloader": "^2.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.4.0",
