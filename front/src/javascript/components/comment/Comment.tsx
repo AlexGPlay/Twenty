@@ -40,7 +40,7 @@ const Comment: React.VFC<CommentProps> = ({ comment }) => {
             <div>{comment.replyTo.comment}</div>
             <div className={styles.infoContainer}>
               <FontAwesomeIcon icon={faReply} className={styles.replyIcon} />
-              <Link to={`/profile/${comment.replyTo.commentedById}`}>
+              <Link to={`/profile/${comment.replyTo.commentedBy.id}`}>
                 {comment.replyTo.commentedBy.name + " " + comment.replyTo.commentedBy.surname}
               </Link>
               <span className={styles.createdAt}>
