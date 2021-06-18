@@ -10,15 +10,32 @@ import SimpleButton from "../components/button/simple/SimpleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import TalkBubble from "../components/talkBubble/TalkBubble";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { dateDiffAsString } from "../util/dates";
 import styles from "./profile.module.scss";
 import { useProfileCommentsQuery } from "../queries/useProfileCommentsQuery";
 import Comment from "../components/comment/Comment";
+import { useCreateProfileCommentMutation } from "../queries/useCreateProfileCommentMutation";
 
 const Profile = () => {
   const { user } = useParams<{ user: string }>();
+
+  const [newComment, setNewComment] = useState("");
+
   const { isLoading, isError, data } = useUserQuery(parseInt(user));
+  const createProfileCommentMutation = useCreateProfileCommentMutation();
+
+  const handleTextAreaEvt: React.KeyboardEventHandler<HTMLTextAreaElement> = async (evt) => {
+    if (evt.key === "Enter" && evt.ctrlKey) return setNewComment(newComment + "\n");
+    else if (evt.key === "Enter") {
+      await createProfileCommentMutation.mutateAsync({
+        comment: newComment,
+        commentedToId: parseInt(user),
+      });
+      setNewComment("");
+    }
+  };
+
   const {
     isLoading: commentsLoading,
     isError: commentsError,
@@ -91,16 +108,21 @@ const Profile = () => {
           </div>
           <div className={styles.userBoardInput}>
             <Image src="/img/camera.png" />
-            <textarea placeholder="Escribe aquí..." />
+            <textarea
+              placeholder="Escribe aquí..."
+              value={newComment}
+              onKeyUp={handleTextAreaEvt}
+              onChange={(evt) => setNewComment(evt.target.value)}
+            />
           </div>
           <div className={styles.userBoardContent}>
-            {commentsData.getProfileComments.length === 0
+            {commentsData?.getProfileComments.length === 0
               ? "¡Sé el primero en comentar algo!"
-              : commentsData.getProfileComments.map((comment, commentIdx) => (
-                  <>
-                    <Comment comment={comment} key={commentIdx} />
+              : commentsData?.getProfileComments.map((comment, commentIdx) => (
+                  <div key={commentIdx}>
+                    <Comment comment={comment} />
                     <hr />
-                  </>
+                  </div>
                 ))}
           </div>
         </div>
