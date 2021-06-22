@@ -15,10 +15,10 @@ const Comment: React.VFC<CommentProps> = ({ comment }) => {
   return (
     <div className={styles.comment}>
       <div className={styles.photo}>
-        <Image src="/img/camera.png" size="small" />
+        <Image src={comment.commentedBy.profileImage || "/img/camera.png"} size="small" />
         {comment.replyTo && (
           <Image
-            src="/img/camera.png"
+            src={comment.replyTo.commentedBy.profileImage || "/img/camera.png"}
             size="small"
             className={styles.repliedPhoto}
             withoutPadding

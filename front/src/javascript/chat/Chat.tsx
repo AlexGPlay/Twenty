@@ -1,12 +1,9 @@
 import * as React from "react";
 import styles from "./chat.module.scss";
-import {
-  useConnectedFriends,
-  useMessages,
-  useOpenChats,
-} from "../context/ChatContext";
+import { useConnectedFriends, useMessages, useOpenChats } from "../context/ChatContext";
 import ConnectionCircle from "../main/right/chat/connectionCircle";
 import { socket } from "../util/socket";
+import { Link } from "react-router-dom";
 
 const Chat = () => {
   const { connectedFriends } = useConnectedFriends();
@@ -16,9 +13,7 @@ const Chat = () => {
   const [texts, setTexts] = React.useState<Record<number, string>>({});
 
   const handleFormSubmit = (
-    evt:
-      | React.KeyboardEvent<HTMLTextAreaElement>
-      | React.FormEvent<HTMLFormElement>,
+    evt: React.KeyboardEvent<HTMLTextAreaElement> | React.FormEvent<HTMLFormElement>,
     chatId: number
   ) => {
     evt.preventDefault();
@@ -49,7 +44,9 @@ const Chat = () => {
                         : "disconnected"
                     }
                   />
-                  <div>{chat.name + " " + chat.surname}</div>
+                  <Link to={`/profile/${chat.id}`} className={styles.chatLink}>
+                    {chat.name + " " + chat.surname}
+                  </Link>
                 </div>
                 <div className={styles.controls}>
                   <div
@@ -63,9 +60,7 @@ const Chat = () => {
                   </div>
                   <div
                     onClick={() => {
-                      setOpenChats?.((curChats) =>
-                        curChats.filter((c) => c.id !== chat.id)
-                      );
+                      setOpenChats?.((curChats) => curChats.filter((c) => c.id !== chat.id));
                     }}
                   >
                     x
@@ -79,9 +74,7 @@ const Chat = () => {
                       className={
                         styles.sender +
                         " " +
-                        (message.senderId === chat.id
-                          ? styles.friend
-                          : styles.me)
+                        (message.senderId === chat.id ? styles.friend : styles.me)
                       }
                     >
                       {message.senderId === chat.id ? chat.name : "Yo"}:
@@ -101,9 +94,7 @@ const Chat = () => {
                         [chat.id]: evt.target.value,
                       }))
                     }
-                    onKeyPress={(evt) =>
-                      evt.code === "Enter" && handleFormSubmit(evt, chat.id)
-                    }
+                    onKeyPress={(evt) => evt.code === "Enter" && handleFormSubmit(evt, chat.id)}
                   ></textarea>
                 </form>
                 <div className={styles.inputDecorator}></div>
@@ -117,12 +108,10 @@ const Chat = () => {
           )}
           <img
             className={styles.img}
-            src="/img/camera.png"
+            src={chat.profileImage || "/img/camera.png"}
             title={chat.name + " " + chat.surname}
             onClick={() => {
-              setOpenChats?.((curState) =>
-                curState.map((c) => ({ ...c, open: c.id === chat.id }))
-              );
+              setOpenChats?.((curState) => curState.map((c) => ({ ...c, open: c.id === chat.id })));
               setMessages((curMessages) => ({
                 ...curMessages,
                 [chat.id]: (curMessages[chat.id] || []).map((msg) => ({

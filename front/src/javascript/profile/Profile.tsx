@@ -8,17 +8,25 @@ import { useUserQuery } from "../queries/useUserQuery";
 import Text from "../components/text/Text";
 import SimpleButton from "../components/button/simple/SimpleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faEnvelope, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import TalkBubble from "../components/talkBubble/TalkBubble";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { dateDiffAsString } from "../util/dates";
 import styles from "./profile.module.scss";
 import { useProfileCommentsQuery } from "../queries/useProfileCommentsQuery";
 import Comment from "../components/comment/Comment";
 import { useCreateProfileCommentMutation } from "../queries/useCreateProfileCommentMutation";
+import { useMeQuery } from "../queries/useMeQuery";
+import Button from "../components/button/twenty/Button";
+import { useUpdateProfileImageMutation } from "../queries/useUpdateProfileImageMutation";
 
 const Profile = () => {
   const { user } = useParams<{ user: string }>();
+  const { data: meData } = useMeQuery();
+
+  const profileImgInputRef = useRef<HTMLInputElement>();
+
+  const isMyProfile = useMemo(() => parseInt(user) === meData?.me?.id, [user, meData]);
 
   const [newComment, setNewComment] = useState("");
 
@@ -36,11 +44,11 @@ const Profile = () => {
     }
   };
 
-  const {
-    isLoading: commentsLoading,
-    isError: commentsError,
-    data: commentsData,
-  } = useProfileCommentsQuery(parseInt(user));
+  const { data: commentsData } = useProfileCommentsQuery(parseInt(user));
+
+  const [isProfileImageHovered, setIsProfileImageHovered] = useState(false);
+  const [newPhoto, setNewPhoto] = useState("");
+  const profileImageMutation = useUpdateProfileImageMutation();
 
   const dateDiff = useMemo(() => {
     if (!data || !data?.user?.status) return;
@@ -51,8 +59,49 @@ const Profile = () => {
     <ThreeColumns>
       <CommonPanel>
         <EmptyContainer>
-          <Image src="/img/camera.png" size="auto" />
+          <Image
+            src={newPhoto || data.user.user.profileImage || "/img/camera.png"}
+            size="big"
+            className={styles.userProfileImg}
+            onMouseEnter={() => isMyProfile && setIsProfileImageHovered(true)}
+            onMouseLeave={() => isMyProfile && setIsProfileImageHovered(false)}
+          >
+            {isProfileImageHovered && (
+              <div
+                className={styles.editProfileImageContainer}
+                title="Cambiar foto"
+                onClick={() => profileImgInputRef?.current?.click()}
+              >
+                <FontAwesomeIcon icon={faCamera} />
+              </div>
+            )}
+          </Image>
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            ref={profileImgInputRef}
+            className={styles.profileImgInput}
+            onChange={(evt) => {
+              if (!evt?.target?.files?.[0]) return;
+              const reader = new FileReader();
+              reader.readAsDataURL(evt.target.files[0]);
+              reader.onload = () => setNewPhoto(reader.result as string);
+            }}
+          />
         </EmptyContainer>
+        {isMyProfile && newPhoto && (
+          <div className={styles.centerBtnContainer}>
+            <Button
+              text="Guardar"
+              buttonType="dark"
+              onClick={async () => {
+                const response = await profileImageMutation.mutateAsync({ photo: newPhoto });
+                if (response.updateProfileImage.errors) return;
+                setNewPhoto("");
+              }}
+            />
+          </div>
+        )}
         <Category title="Redes" paddingRight>
           <div>Estudios universitarios</div>
         </Category>
@@ -107,7 +156,7 @@ const Profile = () => {
             <label>Tablón</label>
           </div>
           <div className={styles.userBoardInput}>
-            <Image src="/img/camera.png" />
+            <Image src={meData?.me?.profileImage || "/img/camera.png"} />
             <textarea
               placeholder="Escribe aquí..."
               value={newComment}

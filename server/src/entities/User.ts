@@ -71,6 +71,10 @@ export class User extends BaseEntity {
   @Column({ default: 10 })
   pendingInvitations!: Number;
 
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  profileImage!: string;
+
   @OneToMany(() => Invitation, (invitation) => invitation.fromUser)
   sentInvitations: Invitation[];
 

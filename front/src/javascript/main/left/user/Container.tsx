@@ -20,7 +20,7 @@ const Container: React.FC<{}> = () => {
     <EmptyContainer padding>
       <div className={styles.dataContainer}>
         <div>
-          <Image src="/img/camera.png" border />
+          <Image src={data?.me?.profileImage || "/img/camera.png"} border />
         </div>
         <div>
           <Link to={"/profile/" + data.me.id} className={styles.username}>

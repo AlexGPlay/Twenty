@@ -26,6 +26,7 @@ export function useProfileCommentsQuery(userId: number) {
               surname
               birthday
               connected
+              profileImage
             }
             replyToId
             replyTo {
@@ -42,6 +43,7 @@ export function useProfileCommentsQuery(userId: number) {
                 surname
                 birthday
                 connected
+                profileImage
               }
             }
           }

@@ -8,13 +8,14 @@ export type UserData = {
   birthday: Date;
   city: string;
   country: string;
-  gender: string
+  gender: string;
   connected: boolean;
   visits: number;
   pendingInvitations: number;
-}
+  profileImage: string | null;
+};
 
 export type FieldError = {
   field: string;
   message: string;
-}
+};

@@ -21,6 +21,7 @@ export function useUserQuery(id: number) {
               country
               gender
               connected
+              profileImage
             }
             status {
               id

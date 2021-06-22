@@ -20,5 +20,5 @@ export async function useApolloMiddleware(app: Express) {
     }),
   });
 
-  apolloServer.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({ app, cors: false, bodyParserConfig: { limit: "10mb" } });
 }

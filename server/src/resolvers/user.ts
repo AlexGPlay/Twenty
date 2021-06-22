@@ -70,4 +70,21 @@ export class UserResolver {
 
     return true;
   }
+
+  @Mutation(() => UserResponse)
+  @UseMiddleware(isAuth)
+  async updateProfileImage(
+    @Arg("photo", () => String) photo: string,
+    @Ctx() { req }: ApolloContext
+  ): Promise<UserResponse> {
+    const user = await User.findOne(req.session.userId);
+
+    if (!user) return { errors: [{ field: "authentication", message: "user does not exist" }] };
+    if (!photo) return { errors: [{ field: "photo", message: "photo does not exist" }] };
+
+    user.profileImage = photo;
+    await user.save();
+
+    return { user };
+  }
 }

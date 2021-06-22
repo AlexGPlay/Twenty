@@ -40,6 +40,7 @@ export const useCreateProfileCommentMutation = () => {
                   surname
                   birthday
                   connected
+                  profileImage
                 }
                 replyToId
                 replyTo {
@@ -56,6 +57,7 @@ export const useCreateProfileCommentMutation = () => {
                     surname
                     birthday
                     connected
+                    profileImage
                   }
                 }
               }

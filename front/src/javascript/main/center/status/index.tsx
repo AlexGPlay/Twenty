@@ -22,7 +22,7 @@ const Status: React.FC<{}> = () => {
   };
 
   const dateDiff = useMemo(() => {
-    if (!data || !data.currentStatus) return;
+    if (!data || !data.currentStatus || !data.currentStatus.status) return;
     return dateDiffAsString(new Date(), new Date(parseInt(data?.currentStatus?.status.createdAt)));
   }, [data]);
 

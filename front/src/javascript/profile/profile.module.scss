@@ -53,3 +53,36 @@
     flex-direction: column;
   }
 }
+
+.userProfileImg {
+  cursor: pointer;
+  position: relative;
+}
+
+.editProfileImageContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(colors.$light-gray-2, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.profileImgInput {
+  display: none;
+}
+
+.centerBtnContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+
+  button {
+    width: 90%;
+  }
+}
