@@ -4,7 +4,7 @@ import styles from "./image.module.scss";
 
 type ImageProps = {
   src: string;
-  size?: "small" | "big" | "auto";
+  size?: "small" | "medium" | "big" | "auto";
   border?: boolean;
   className?: string;
   withoutPadding?: boolean;
