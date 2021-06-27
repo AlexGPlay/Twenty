@@ -6,12 +6,32 @@ import Image from "../user/image/Image";
 import styles from "./comment.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import WriteComment from "./WriteComment";
+import { useCreateProfileCommentMutation } from "../../queries/useCreateProfileCommentMutation";
 
 export type CommentProps = {
   comment: ProfileComment;
 };
 
 const Comment: React.VFC<CommentProps> = ({ comment }) => {
+  const [showReplyBox, setShowReplyBox] = useState(false);
+  const [replyText, setReplyText] = useState("");
+  const createProfileCommentMutation = useCreateProfileCommentMutation();
+
+  const handleTextAreaEvt: React.KeyboardEventHandler<HTMLTextAreaElement> = async (evt) => {
+    if (evt.key === "Enter" && evt.ctrlKey) return setReplyText(replyText + "\n");
+    else if (evt.key === "Enter") {
+      await createProfileCommentMutation.mutateAsync({
+        comment: replyText,
+        commentedToId: comment.commentedToId,
+        replyToId: comment.id,
+      });
+      setReplyText("");
+      setShowReplyBox(false);
+    }
+  };
+
   return (
     <div className={styles.comment}>
       <div className={styles.photo}>
@@ -50,6 +70,19 @@ const Comment: React.VFC<CommentProps> = ({ comment }) => {
                 )}
               </span>
             </div>
+          </div>
+        )}
+        <div className={styles.replyComment} onClick={() => setShowReplyBox(!showReplyBox)}>
+          <FontAwesomeIcon icon={faReply} className={styles.replyIcon} /> Responder
+        </div>
+        {showReplyBox && (
+          <div className={styles.replyBox}>
+            <WriteComment
+              placeholder="Escribe aquí..."
+              value={replyText}
+              onKeyDown={handleTextAreaEvt}
+              onChange={(evt) => setReplyText(evt.target.value)}
+            />
           </div>
         )}
       </div>

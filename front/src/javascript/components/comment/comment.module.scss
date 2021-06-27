@@ -67,3 +67,18 @@
     color: colors.$gray-2;
   }
 }
+
+.replyComment {
+  margin-top: 10px;
+  font-size: 12px;
+  color: colors.$gray-1;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.replyBox {
+  margin-top: 10px;
+}

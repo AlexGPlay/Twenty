@@ -3,7 +3,7 @@ import { ProfileComment } from "./profileComment";
 export type CreateProfileCommentRequest = {
   commentedToId: number;
   comment: string;
-  reployToId?: number;
+  replyToId?: number;
 };
 
 export type CreateProfileCommentResponse = {

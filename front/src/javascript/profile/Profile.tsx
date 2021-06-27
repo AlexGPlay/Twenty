@@ -19,6 +19,7 @@ import { useCreateProfileCommentMutation } from "../queries/useCreateProfileComm
 import { useMeQuery } from "../queries/useMeQuery";
 import Button from "../components/button/twenty/Button";
 import { useUpdateProfileImageMutation } from "../queries/useUpdateProfileImageMutation";
+import WriteComment from "../components/comment/WriteComment";
 
 const Profile = () => {
   const { user } = useParams<{ user: string }>();
@@ -155,15 +156,12 @@ const Profile = () => {
           <div className={styles.title}>
             <label>Tablón</label>
           </div>
-          <div className={styles.userBoardInput}>
-            <Image src={meData?.me?.profileImage || "/img/camera.png"} />
-            <textarea
-              placeholder="Escribe aquí..."
-              value={newComment}
-              onKeyUp={handleTextAreaEvt}
-              onChange={(evt) => setNewComment(evt.target.value)}
-            />
-          </div>
+          <WriteComment
+            placeholder="Escribe aquí..."
+            value={newComment}
+            onKeyDown={handleTextAreaEvt}
+            onChange={(evt) => setNewComment(evt.target.value)}
+          />
           <div className={styles.userBoardContent}>
             {commentsData?.getProfileComments.length === 0
               ? "¡Sé el primero en comentar algo!"

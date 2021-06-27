@@ -28,32 +28,6 @@
   color: colors.$black-1;
 }
 
-.userBoardInput {
-  background-color: colors.$light-gray-1;
-  border: 1px solid colors.$gray-1;
-  padding: 10px;
-  height: 75px;
-  display: flex;
-  flex: 1;
-  margin-bottom: 10px;
-
-  & > *:first-child {
-    width: 10%;
-    max-height: 100%;
-  }
-
-  textarea {
-    resize: none;
-    width: 90%;
-  }
-
-  .userBoardContent {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .userProfileImg {
   cursor: pointer;
   position: relative;
