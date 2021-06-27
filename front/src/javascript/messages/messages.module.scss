@@ -1,0 +1,39 @@
+@use '../colors.scss';
+
+.messagesContainer {
+  display: grid;
+  grid-template-columns: 25% auto;
+  height: 100%;
+}
+
+.linksContainer {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    color: colors.$twenty-blue;
+    text-decoration: none;
+    margin-top: -1px;
+    margin-right: 25px;
+    border: {
+      bottom: 1px solid lightgray;
+      top: 1px solid lightgray;
+    }
+
+    &.selected {
+      background-color: white;
+      color: black;
+      font-weight: bold;
+      border-left: 1px solid lightgray;
+      margin-right: -1px;
+    }
+  }
+}
+
+.btnContainer {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

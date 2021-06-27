@@ -7,6 +7,7 @@ import "./app.scss";
 import { ConnectedFriendsData } from "./types/chat";
 import { useConnectedFriends, useMessages, useOpenChats } from "./context/ChatContext";
 import Profile from "./profile/Profile";
+import Messages from "./messages/Messages";
 
 const App = () => {
   const { connectedFriends, setConnectedFriends } = useConnectedFriends();
@@ -55,6 +56,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Main} />
         <Route path="/profile/:user" component={Profile} />
+        <Route path="/messages" component={Messages} />
       </Switch>
     </Template>
   );

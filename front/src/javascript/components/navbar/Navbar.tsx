@@ -64,7 +64,11 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
             </div>
             <a className={styles.navbarText}>Perfil</a>
           </div>
-          <div>
+          <div
+            className={location.pathname.includes("/messages") ? styles.active : ""}
+            data-path="/messages/received"
+            onClick={handleMenuClick}
+          >
             <div className={styles.navbarIcon}>
               <FontAwesomeIcon icon={faEnvelope} />
             </div>
