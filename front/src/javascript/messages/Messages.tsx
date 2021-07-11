@@ -5,8 +5,8 @@ import CommonPanel from "../components/left/CommonPanel";
 import SimpleButton from "../components/button/simple/SimpleButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import Category from "../components/category/Category";
 import { useMemo } from "react";
+import MessagesView from "./MessagesView";
 
 const Messages = () => {
   const history = useHistory();
@@ -18,6 +18,11 @@ const Messages = () => {
       { text: "De desconocidos", path: "/messages/anonymous" },
     ],
     []
+  );
+
+  const selectedOption = useMemo(
+    () => options.find((option) => window.location.pathname.includes(option.path)),
+    [window.location.pathname]
   );
 
   return (
@@ -33,18 +38,18 @@ const Messages = () => {
             Escribir nuevo mensaje
           </SimpleButton>
         </div>
-        <div className={styles.linksContainer}>
+        <nav className={styles.linksContainer}>
           {options.map((option) => (
             <Link
               to={option.path}
-              className={window.location.pathname.includes(option.path) ? styles.selected : ""}
+              className={selectedOption?.path === option.path ? styles.selected : ""}
             >
               {option.text}
             </Link>
           ))}
-        </div>
+        </nav>
       </CommonPanel>
-      <Category title="Bandeja de entrada"></Category>
+      {selectedOption ? <MessagesView title={selectedOption.text} /> : "Nuevo mensaje"}
     </div>
   );
 };

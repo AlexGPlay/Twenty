@@ -1,0 +1,36 @@
+@use '../../colors.scss';
+
+.paginator {
+  display: flex;
+  align-items: center;
+
+  & > *:first-child {
+    margin-right: 10px;
+  }
+}
+
+.text {
+  display: flex;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+
+  & > button {
+    font-size: 12px;
+    color: colors.$gray-2;
+    margin-top: 0;
+    margin-right: 5px;
+
+    &:disabled {
+      color: colors.$light-gray-2;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.centerButtons {
+  padding: 0 15px;
+}

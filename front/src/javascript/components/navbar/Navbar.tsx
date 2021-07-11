@@ -33,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
   };
 
   return (
-    <div className={`${styles.navbarContainer} ${containerClass}`}>
+    <nav className={`${styles.navbarContainer} ${containerClass}`}>
       <div className={`${styles.navbar} ${contentClass}`}>
         <div className={styles.navbarLogo}>
           <img
@@ -112,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ containerClass, contentClass }) => {
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 
